@@ -5,6 +5,6 @@ class AppBreakpoints {
   static const md = 620.0;
   static const xmd = 750.0;
   static const lg = 980.0;
-  static const xl = 1200.0;
+  static const xl = 1024.0;
   static const xlg = 1500.0;
 }

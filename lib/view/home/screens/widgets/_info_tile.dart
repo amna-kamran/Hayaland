@@ -35,7 +35,9 @@ class _InfoTile extends StatelessWidget {
                 grade,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: MediaQuery.sizeOf(context).width * 0.012,
+                  fontSize: isDesktop()
+                      ? MediaQuery.sizeOf(context).width * 0.01
+                      : MediaQuery.sizeOf(context).width * 0.02,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -58,7 +60,9 @@ class _InfoTile extends StatelessWidget {
                 Text(
                   label,
                   style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).width * 0.012,
+                    fontSize: isDesktop()
+                        ? MediaQuery.sizeOf(context).width * 0.01
+                        : MediaQuery.sizeOf(context).width * 0.025,
                   ),
                 ),
                 Text(
@@ -67,7 +71,7 @@ class _InfoTile extends StatelessWidget {
                     color: Colors.black,
                     fontSize: isDesktop()
                         ? MediaQuery.sizeOf(context).width * 0.012
-                        : MediaQuery.sizeOf(context).width * 0.03,
+                        : MediaQuery.sizeOf(context).width * 0.025,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -78,7 +82,7 @@ class _InfoTile extends StatelessWidget {
                     color: const Color.fromARGB(255, 185, 41, 31),
                     fontSize: isDesktop()
                         ? MediaQuery.sizeOf(context).width * 0.015
-                        : MediaQuery.sizeOf(context).width * 0.04,
+                        : MediaQuery.sizeOf(context).width * 0.03,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -86,12 +90,14 @@ class _InfoTile extends StatelessWidget {
             ),
           ],
         ),
-        const Positioned(
-          top: 60,
-          right: 20,
+        Positioned(
+          top: MediaQuery.sizeOf(context).width * 0.05,
+          right: MediaQuery.sizeOf(context).width * 0.02,
           child: Icon(
             Icons.visibility,
-            size: 20,
+            size: isDesktop()
+                ? MediaQuery.sizeOf(context).width * 0.02
+                : MediaQuery.sizeOf(context).width * 0.04,
             color: Colors.grey,
           ),
         ),
