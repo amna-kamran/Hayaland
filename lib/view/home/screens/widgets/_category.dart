@@ -37,7 +37,7 @@ class CategoryExpanded extends StatelessWidget {
                 ]),
                 childrenPadding: const EdgeInsets.only(left: 20.0),
                 iconColor: Colors.black,
-                children: [],
+                children: const [],
               ),
             )
       ],
