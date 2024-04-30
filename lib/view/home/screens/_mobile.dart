@@ -12,12 +12,24 @@ class _MobileState extends State<_Mobile> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: NestedScrollView(
-        floatHeaderSlivers: true,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              pinned: false,
-              backgroundColor: Colors.white,
+              pinned: true,
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: const [-0.5, 1],
+                    colors: [
+                      Colors.white.withOpacity(0.8),
+                      Colors.white.withOpacity(0.0),
+                    ],
+                  ),
+                ),
+              ),
+              backgroundColor: Colors.transparent,
               title: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Row(
