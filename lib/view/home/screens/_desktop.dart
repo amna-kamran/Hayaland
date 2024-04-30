@@ -5,34 +5,58 @@ class _Desktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(AppleProvider().getApple().toString());
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
               pinned: true,
-              flexibleSpace: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: const [-0.5, 1],
-                    colors: [
-                      Colors.white.withOpacity(0.8),
-                      Colors.white.withOpacity(0.0),
+              floating: true,
+              expandedHeight: MediaQuery.sizeOf(context).width * 0.115,
+              flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                expandedTitleScale: 1,
+                background: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 90,
+                      color: Colors.white,
+                      child: Image.asset(
+                        'lib/assets/images/hayaland.png',
+                        width: MediaQuery.sizeOf(context).width * 0.15,
+                        height: MediaQuery.sizeOf(context).width * 0.15,
+                      ),
+                    ),
+                  ],
+                ),
+                title: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.sizeOf(context).width * 0.1,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ...menu.asMap().entries.map(
+                            (entry) => HoverButton(
+                              builder: (isHovered) => Text(
+                                entry.value,
+                                style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.sizeOf(context).width * 0.013,
+                                  color: isHovered
+                                      ? Colors.white
+                                      : const Color(darkgrey),
+                                ),
+                              ),
+                            ),
+                          ),
                     ],
                   ),
                 ),
               ),
-              backgroundColor: Colors.transparent,
-              title: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Image.asset(
-                  'lib/assets/images/hayaland.png',
-                  width: MediaQuery.sizeOf(context).width * 0.15,
-                  height: MediaQuery.sizeOf(context).width * 0.15,
-                ),
-              ),
+              backgroundColor: Colors.black,
             ),
           ];
         },
