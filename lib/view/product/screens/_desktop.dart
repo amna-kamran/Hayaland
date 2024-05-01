@@ -241,16 +241,18 @@ class _DesktopState extends State<_Desktop> {
                   height: MediaQuery.sizeOf(context).width * 0.1,
                 ),
                 Text(
-                  "Device Details",
+                  "端末詳細",
                   style: TextStyle(
+                    color: Colors.grey,
                     fontSize: MediaQuery.sizeOf(context).width * 0.02,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.01,
                 ),
                 SizedBox(
-                  width: MediaQuery.sizeOf(context).width * 0.7,
+                  width: MediaQuery.sizeOf(context).width * 0.5,
                   child: Table(
                     columnWidths: const {
                       0: FlexColumnWidth(1),
@@ -264,14 +266,15 @@ class _DesktopState extends State<_Desktop> {
                       ...phoneDetails.asMap().entries.map(
                             (e) => TableRow(
                               children: [
-                                Padding(
+                                Container(
+                                  color: const Color(lightgrey),
                                   padding: const EdgeInsets.all(15),
                                   child: Text(
                                     e.value.title,
                                     style: TextStyle(
                                       fontSize:
                                           MediaQuery.sizeOf(context).width *
-                                              0.015,
+                                              0.012,
                                     ),
                                   ),
                                 ),
@@ -282,7 +285,7 @@ class _DesktopState extends State<_Desktop> {
                                     style: TextStyle(
                                       fontSize:
                                           MediaQuery.sizeOf(context).width *
-                                              0.015,
+                                              0.012,
                                     ),
                                   ),
                                 ),
