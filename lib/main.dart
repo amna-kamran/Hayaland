@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:web_task1/view/home/home_screen.dart';
+
+import 'package:web_task1/view/product/product_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-      home: const HomeScreen(),
+      home: const ProductScreen(),
     );
   }
 }

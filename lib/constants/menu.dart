@@ -1,9 +1,9 @@
 const List<String> menu = [
-  "Home",
-  "Shop",
-  "Outlet",
-  "Buyout",
-  "Guide",
-  "FAQ",
-  "Contact"
+  "ホーム",
+  "ショップ",
+  "アウトレット",
+  "買取",
+  "ガイド",
+  "よくある質問",
+  "お問い合わせ",
 ];

@@ -1,4 +1,4 @@
-import 'package:web_task1/view/model/smartphone.dart';
+import 'package:web_task1/constants/model/smartphone.dart';
 
 class AppleSmartphone {
   List<Smartphone>? smartphone;
