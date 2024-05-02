@@ -26,6 +26,13 @@ class _DesktopState extends State<_Desktop> {
     });
   }
 
+  void onTap() {
+    Navigator.pushNamed(
+      context,
+      '/product',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,37 +181,12 @@ class _DesktopState extends State<_Desktop> {
                               ...appleItems
                                   .asMap()
                                   .entries
-                                  .map((entry) => InkWell(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                            context,
-                                            '/product',
-                                            arguments: DeviceDetails(
-                                                entry.value.deviceDetails
-                                                    .deviceType,
-                                                entry.value.deviceDetails.model,
-                                                entry.value.deviceDetails
-                                                    .imeiNumber,
-                                                entry.value.deviceDetails
-                                                    .carrier,
-                                                entry.value.deviceDetails.color,
-                                                entry.value.deviceDetails
-                                                    .maximumBatteryCapacity,
-                                                entry.value.deviceDetails
-                                                    .accessories,
-                                                entry.value.deviceDetails
-                                                    .malfunction,
-                                                entry.value.deviceDetails.grade,
-                                                entry.value.deviceDetails
-                                                    .exteriorDetails),
-                                          );
-                                        },
-                                        child: _InfoTile(
-                                          grade: entry.value.grade ?? '',
-                                          label: entry.value.label ?? '',
-                                          desc: entry.value.desc ?? '',
-                                          price: entry.value.price ?? '',
-                                        ),
+                                  .map((entry) => _InfoTile(
+                                        grade: entry.value.grade ?? '',
+                                        label: entry.value.label ?? '',
+                                        desc: entry.value.desc ?? '',
+                                        price: entry.value.price ?? '',
+                                        onTap: onTap,
                                       )),
                             ],
                           ),

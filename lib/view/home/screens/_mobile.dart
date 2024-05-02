@@ -172,6 +172,7 @@ class _MobileState extends State<_Mobile> {
                       label: "Apple",
                       desc: "[Junk] Apple | iPhone 13 Pro 128GB | SIM free",
                       price: "¥62,000",
+                      onTap: null,
                     );
                   },
                 ),

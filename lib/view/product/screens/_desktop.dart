@@ -31,8 +31,8 @@ class _DesktopState extends State<_Desktop> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments;
-    debugPrint(args.toString());
+    // final args = ModalRoute.of(context)!.settings.arguments;
+
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -152,7 +152,7 @@ class _DesktopState extends State<_Desktop> {
                                 onTap: () {},
                                 onHover: (value) => onHoverUnderline(value),
                                 child: Text(
-                                  "Contact us Through Email for Product Inquiries",
+                                  "この商品への質問",
                                   style: TextStyle(
                                     color: Colors.black87,
                                     fontWeight: FontWeight.bold,
@@ -193,7 +193,7 @@ class _DesktopState extends State<_Desktop> {
                               onPressed: () {},
                               onHover: (value) => onHoveredAdd(value),
                               child: Text(
-                                "Add to Cart",
+                                "カートに入れる",
                                 style: TextStyle(
                                   color: isHoveredAdd
                                       ? Colors.black

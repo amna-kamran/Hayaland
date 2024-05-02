@@ -1,7 +1,4 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-
 import 'package:flutter_svg/svg.dart';
 import 'package:web_task1/configs/config_space.dart';
 import 'package:web_task1/constants/app_break_points.dart';
@@ -10,10 +7,10 @@ import 'package:web_task1/constants/drop_down_values.dart';
 import 'package:web_task1/constants/expansion_tile_items.dart';
 import 'package:web_task1/constants/icons_paths.dart';
 import 'package:web_task1/constants/items.dart';
-import 'package:web_task1/model/device_detail.dart';
 import 'package:web_task1/services/products/apple_provider.dart';
 
 import 'package:web_task1/services/responsive.dart';
+import 'package:web_task1/view/widgets/design/visibility_icon.dart';
 import 'package:web_task1/view/widgets/core/desktop_appbar.dart';
 import 'package:web_task1/view/widgets/core/mobile_appbar.dart';
 import 'package:web_task1/view/widgets/design/custom_drop_down.dart';
