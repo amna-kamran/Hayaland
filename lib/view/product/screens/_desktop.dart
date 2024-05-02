@@ -31,6 +31,8 @@ class _DesktopState extends State<_Desktop> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments;
+    debugPrint(args.toString());
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -297,6 +299,44 @@ class _DesktopState extends State<_Desktop> {
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.1,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                  height: MediaQuery.sizeOf(context).width * 0.06,
+                  width: MediaQuery.sizeOf(context).width * 0.9,
+                  child: Center(
+                    child: Text(
+                      "ユーザガイド",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: MediaQuery.sizeOf(context).width * 0.02,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).width * 0.02,
+                ),
+                const _CircularDropdown(
+                  text: "お支払い方法について",
+                ),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).width * 0.02,
+                ),
+                const _CircularDropdown(
+                  text: "お支払い方法について",
+                ),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).width * 0.02,
+                ),
+                const _CircularDropdown(
+                  text: "お支払い方法について",
+                ),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).width * 0.02,
                 ),
               ],
             ),

@@ -11,7 +11,7 @@ class DeviceDetails {
   String? exteriorDetails;
 
   DeviceDetails(
-      {this.deviceType,
+      this.deviceType,
       this.model,
       this.imeiNumber,
       this.carrier,
@@ -20,7 +20,7 @@ class DeviceDetails {
       this.accessories,
       this.malfunction,
       this.grade,
-      this.exteriorDetails});
+      this.exteriorDetails);
 
   DeviceDetails.fromJson(Map<String, dynamic> json) {
     deviceType = json["Device Type"];
@@ -49,30 +49,4 @@ class DeviceDetails {
     data["Exterior Details"] = exteriorDetails;
     return data;
   }
-
-  DeviceDetails copyWith({
-    String? deviceType,
-    String? model,
-    String? imeiNumber,
-    String? carrier,
-    String? color,
-    String? maximumBatteryCapacity,
-    String? accessories,
-    String? malfunction,
-    String? grade,
-    String? exteriorDetails,
-  }) =>
-      DeviceDetails(
-        deviceType: deviceType ?? this.deviceType,
-        model: model ?? this.model,
-        imeiNumber: imeiNumber ?? this.imeiNumber,
-        carrier: carrier ?? this.carrier,
-        color: color ?? this.color,
-        maximumBatteryCapacity:
-            maximumBatteryCapacity ?? this.maximumBatteryCapacity,
-        accessories: accessories ?? this.accessories,
-        malfunction: malfunction ?? this.malfunction,
-        grade: grade ?? this.grade,
-        exteriorDetails: exteriorDetails ?? this.exteriorDetails,
-      );
 }

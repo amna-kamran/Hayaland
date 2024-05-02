@@ -10,6 +10,7 @@ class DesktopAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       pinned: true,
       floating: true,
       expandedHeight: MediaQuery.sizeOf(context).width * 0.115,

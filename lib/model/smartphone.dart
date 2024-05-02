@@ -1,4 +1,4 @@
-import 'package:web_task1/constants/model/device_detail.dart';
+import 'package:web_task1/model/device_detail.dart';
 
 class Smartphone {
   String? grade;

@@ -1,4 +1,4 @@
-import 'package:web_task1/constants/model/smartphone.dart';
+import 'package:web_task1/model/smartphone.dart';
 
 class AppleSmartphone {
   List<Smartphone>? smartphone;
@@ -16,7 +16,7 @@ class AppleSmartphone {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (smartphone != null) {
-      data["apple_items"] = smartphone?.map((e) => e.toJson()).toList();
+      data["smartphones"][0] = smartphone?.map((e) => e.toJson()).toList();
     }
     return data;
   }

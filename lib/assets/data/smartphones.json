@@ -1,4 +1,4 @@
-{ "smartphones":[
+{ "smartphones":
     {
         "apple_items": [
           {
@@ -294,5 +294,5 @@
           ]
       }
       
-]
+
 }

@@ -1,7 +1,30 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of '../home_screen.dart';
 
-class _Desktop extends StatelessWidget {
+class _Desktop extends StatefulWidget {
   const _Desktop();
+
+  @override
+  State<_Desktop> createState() => _DesktopState();
+}
+
+class _DesktopState extends State<_Desktop> {
+  @override
+  void initState() {
+    super.initState();
+    getAppleItems();
+  }
+
+  List<dynamic> appleItems = [];
+
+  void getAppleItems() async {
+    AppleProvider appleProvider = AppleProvider();
+
+    List<dynamic> appleItems = await appleProvider.getApple();
+    setState(() {
+      this.appleItems = appleItems;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +158,7 @@ class _Desktop extends StatelessWidget {
                           ),
 
                           const SizedBox(height: Space.y1),
-                          GridView.builder(
+                          GridView(
                             shrinkWrap: true,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
@@ -147,16 +170,43 @@ class _Desktop extends StatelessWidget {
                                     crossAxisSpacing: 10,
                                     mainAxisSpacing: 10,
                                     childAspectRatio: 0.6),
-                            itemCount: 10,
-                            itemBuilder: (BuildContext context, int index) {
-                              return const _InfoTile(
-                                grade: "J GRADE",
-                                label: "Apple",
-                                desc:
-                                    "[Junk] Apple | iPhone 13 Pro 128GB | SIM free",
-                                price: "¥62,000",
-                              );
-                            },
+                            children: [
+                              ...appleItems
+                                  .asMap()
+                                  .entries
+                                  .map((entry) => InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            '/product',
+                                            arguments: DeviceDetails(
+                                                entry.value.deviceDetails
+                                                    .deviceType,
+                                                entry.value.deviceDetails.model,
+                                                entry.value.deviceDetails
+                                                    .imeiNumber,
+                                                entry.value.deviceDetails
+                                                    .carrier,
+                                                entry.value.deviceDetails.color,
+                                                entry.value.deviceDetails
+                                                    .maximumBatteryCapacity,
+                                                entry.value.deviceDetails
+                                                    .accessories,
+                                                entry.value.deviceDetails
+                                                    .malfunction,
+                                                entry.value.deviceDetails.grade,
+                                                entry.value.deviceDetails
+                                                    .exteriorDetails),
+                                          );
+                                        },
+                                        child: _InfoTile(
+                                          grade: entry.value.grade ?? '',
+                                          label: entry.value.label ?? '',
+                                          desc: entry.value.desc ?? '',
+                                          price: entry.value.price ?? '',
+                                        ),
+                                      )),
+                            ],
                           ),
                         ],
                       ),
