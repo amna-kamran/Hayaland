@@ -9,6 +9,50 @@ class _Mobile extends StatefulWidget {
 
 class _MobileState extends State<_Mobile> {
   @override
+  void initState() {
+    super.initState();
+    getAppleItems();
+  }
+
+  List<dynamic> appleItems = [];
+  List<dynamic> filteredAppleItems = [];
+
+  void getAppleItems() async {
+    AppleProvider appleProvider = AppleProvider();
+
+    List<dynamic> appleItems = await appleProvider.getApple();
+    setState(
+      () {
+        this.appleItems = appleItems;
+        filteredAppleItems = appleItems;
+      },
+    );
+  }
+
+  void searchProducts(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        filteredAppleItems = appleItems;
+      } else {
+        String formattedQuery = query.replaceAll(' ', '').toLowerCase();
+        filteredAppleItems = appleItems.where((item) {
+          String formattedDesc = item.desc.replaceAll(' ', '').toLowerCase();
+          return formattedDesc.contains(formattedQuery);
+        }).toList();
+      }
+    });
+  }
+
+  onTap(Smartphone smartphone) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProductScreen(phoneDetails: smartphone),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: NestedScrollView(
@@ -61,7 +105,7 @@ class _MobileState extends State<_Mobile> {
                     ),
                     children: [
                       SearchField(
-                        onChanged: (value) {},
+                        onChanged: searchProducts,
                         fontSize: MediaQuery.sizeOf(context).width * 0.025,
                         iconSize: MediaQuery.sizeOf(context).width * 0.03,
                       ),
@@ -135,13 +179,13 @@ class _MobileState extends State<_Mobile> {
                 ),
                 const SizedBox(height: Space.y1),
                 RichText(
-                  text: const TextSpan(
-                    text: "100",
-                    style: TextStyle(
+                  text: TextSpan(
+                    text: filteredAppleItems.length.toString(),
+                    style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Colors.grey,
                     ),
-                    children: [
+                    children: const [
                       WidgetSpan(
                         child: SizedBox(
                           width: 5.0,
@@ -158,23 +202,27 @@ class _MobileState extends State<_Mobile> {
                   ),
                 ),
                 const SizedBox(height: Space.y1),
-                GridView.builder(
+                GridView(
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       childAspectRatio: 0.6),
-                  itemCount: 10,
-                  itemBuilder: (BuildContext context, int index) {
-                    return const _InfoTile(
-                      grade: "J GRADE",
-                      label: "Apple",
-                      desc: "[Junk] Apple | iPhone 13 Pro 128GB | SIM free",
-                      price: "¥62,000",
-                      onTap: null,
-                    );
-                  },
+                  children: [
+                    ...filteredAppleItems
+                        .asMap()
+                        .entries
+                        .map((entry) => _InfoTile(
+                              grade: entry.value.grade ?? '',
+                              label: entry.value.label ?? '',
+                              desc: entry.value.desc ?? '',
+                              price: entry.value.price ?? '',
+                              onTap: () {
+                                onTap(entry.value);
+                              },
+                            )),
+                  ],
                 ),
               ],
             ),

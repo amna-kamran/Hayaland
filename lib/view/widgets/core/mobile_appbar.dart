@@ -6,6 +6,7 @@ class MobileAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       pinned: true,
       flexibleSpace: Container(
         decoration: BoxDecoration(

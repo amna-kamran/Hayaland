@@ -1,37 +1,24 @@
 part of '../product_screen.dart';
 
 class _Desktop extends StatefulWidget {
-  const _Desktop();
-
+  final Smartphone phoneDetails;
+  const _Desktop({
+    required this.phoneDetails,
+  });
+  //
   @override
   State<_Desktop> createState() => _DesktopState();
 }
 
 class _DesktopState extends State<_Desktop> {
-  bool isHoveredAdd = false;
-  bool isHoveredBuy = false;
-  bool isUnderline = false;
-  void onHoveredAdd(bool value) {
-    setState(() {
-      isHoveredAdd = value;
-    });
-  }
-
-  void onHoveredBuy(bool value) {
-    setState(() {
-      isHoveredBuy = value;
-    });
-  }
-
-  void onHoverUnderline(bool value) {
-    setState(() {
-      isUnderline = value;
-    });
-  }
+  bool isTablet() =>
+      MediaQuery.sizeOf(context).width < AppBreakpoints.lg &&
+      MediaQuery.sizeOf(context).width > AppBreakpoints.xs;
 
   @override
   Widget build(BuildContext context) {
-    // final args = ModalRoute.of(context)!.settings.arguments;
+    Map<String, dynamic>? deviceDetails =
+        widget.phoneDetails.deviceDetails?.toJson();
 
     return Scaffold(
       body: NestedScrollView(
@@ -48,34 +35,35 @@ class _DesktopState extends State<_Desktop> {
               horizontal: MediaQuery.sizeOf(context).width * 0.02,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.015,
                 ),
-                const Text(
-                  "STRADE [Home]→ 2. Outlet→  Smartphone → iPhone→  iPhone 13 Pro→ [Junk goods] Apple|iPhone 13 Pro 128GB|SIM Free",
+                Container(
+                  padding: isTablet()
+                      ? EdgeInsets.symmetric(
+                          vertical: MediaQuery.sizeOf(context).width * 0.05,
+                        )
+                      : EdgeInsets.zero,
+                  width: isTablet()
+                      ? MediaQuery.sizeOf(context).width * 0.6
+                      : MediaQuery.sizeOf(context).width * 1,
+                  child: const Text(
+                    textAlign: TextAlign.center,
+                    "STRADE [Home]→ 2. Outlet→  Smartphone → iPhone→  iPhone 13 Pro→ [Junk goods] Apple|iPhone 13 Pro 128GB|SIM Free",
+                  ),
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.03,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: const Color(darkgrey),
-                          width: 1,
-                        ),
-                      ),
-                      child: Column(
-                        children: [
-                          HoverToZoom(
-                            imagePath: 'lib/assets/images/iphone.jpg',
-                            dimension: MediaQuery.sizeOf(context).width * 0.4,
-                          ),
-                        ],
-                      ),
+                    const _ImageSlider(
+                      dimensions: 490,
                     ),
                     SizedBox(
                       width: MediaQuery.sizeOf(context).width * 0.03,
@@ -85,11 +73,11 @@ class _DesktopState extends State<_Desktop> {
                       children: [
                         SizedBox(
                           width: MediaQuery.sizeOf(context).width * 0.4,
-                          child: const Text(
-                            "[Junk goods] Apple|iPhone 13 Pro 128GB|SIM Free",
+                          child: Text(
+                            widget.phoneDetails.desc ?? '',
                             style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                              fontSize: isTablet() ? 18 : 20,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
@@ -103,12 +91,11 @@ class _DesktopState extends State<_Desktop> {
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.grey),
                           child: Text(
-                            "J GRADE",
+                            widget.phoneDetails.grade ?? '',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize:
-                                  MediaQuery.sizeOf(context).width * 0.015,
-                              fontWeight: FontWeight.bold,
+                              fontSize: isTablet() ? 16 : 20,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
@@ -116,10 +103,12 @@ class _DesktopState extends State<_Desktop> {
                           height: MediaQuery.sizeOf(context).width * 0.01,
                         ),
                         Text(
-                          "¥62,000",
+                          widget.phoneDetails.price ?? '',
                           style: TextStyle(
-                            fontSize: MediaQuery.sizeOf(context).width * 0.018,
-                            fontWeight: FontWeight.bold,
+                            fontSize: isTablet()
+                                ? MediaQuery.sizeOf(context).width * 0.03
+                                : 28,
+                            fontWeight: FontWeight.w500,
                             color: const Color.fromARGB(255, 185, 41, 31),
                           ),
                         ),
@@ -138,9 +127,9 @@ class _DesktopState extends State<_Desktop> {
                         ),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               CupertinoIcons.mail,
-                              size: MediaQuery.sizeOf(context).width * 0.015,
+                              size: 12,
                               color: Colors.black87,
                             ),
                             SizedBox(
@@ -150,15 +139,11 @@ class _DesktopState extends State<_Desktop> {
                               width: MediaQuery.sizeOf(context).width * 0.4,
                               child: InkWell(
                                 onTap: () {},
-                                onHover: (value) => onHoverUnderline(value),
-                                child: Text(
+                                child: const Text(
                                   "この商品への質問",
                                   style: TextStyle(
                                     color: Colors.black87,
                                     fontWeight: FontWeight.bold,
-                                    decoration: isUnderline
-                                        ? TextDecoration.underline
-                                        : TextDecoration.none,
                                     decorationThickness: 2,
                                   ),
                                 ),
@@ -173,8 +158,8 @@ class _DesktopState extends State<_Desktop> {
                           height: MediaQuery.sizeOf(context).width * 0.01,
                         ),
                         SizedBox(
-                            width: MediaQuery.sizeOf(context).width * 0.15,
-                            height: MediaQuery.sizeOf(context).width * 0.04,
+                            width: 150,
+                            height: 50,
                             child: ElevatedButton(
                               style: ButtonStyle(
                                 elevation: MaterialStateProperty.all(0),
@@ -184,22 +169,15 @@ class _DesktopState extends State<_Desktop> {
                                     side: const BorderSide(color: Colors.black),
                                   ),
                                 ),
-                                backgroundColor: MaterialStateColor.resolveWith(
-                                  (states) => isHoveredAdd
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.black),
                               ),
                               onPressed: () {},
-                              onHover: (value) => onHoveredAdd(value),
-                              child: Text(
+                              child: const Text(
                                 "カートに入れる",
                                 style: TextStyle(
-                                  color: isHoveredAdd
-                                      ? Colors.black
-                                      : Colors.white,
-                                  fontSize:
-                                      MediaQuery.sizeOf(context).width * 0.012,
+                                  color: Colors.white,
+                                  fontSize: 14,
                                 ),
                               ),
                             )),
@@ -207,8 +185,8 @@ class _DesktopState extends State<_Desktop> {
                           height: MediaQuery.sizeOf(context).width * 0.01,
                         ),
                         SizedBox(
-                          width: MediaQuery.sizeOf(context).width * 0.4,
-                          height: MediaQuery.sizeOf(context).width * 0.04,
+                          width: MediaQuery.sizeOf(context).width * 0.3,
+                          height: 50,
                           child: ElevatedButton(
                             style: ButtonStyle(
                               elevation: MaterialStateProperty.all(0),
@@ -217,20 +195,16 @@ class _DesktopState extends State<_Desktop> {
                                   borderRadius: BorderRadius.circular(0),
                                 ),
                               ),
-                              backgroundColor: MaterialStateColor.resolveWith(
-                                (states) => isHoveredBuy
-                                    ? const Color(0xFF4422BF)
-                                    : const Color(0xFF5A31F4),
+                              backgroundColor: MaterialStateProperty.all(
+                                const Color(0xFF4422BF),
                               ),
                             ),
                             onPressed: () {},
-                            onHover: (value) => onHoveredBuy(value),
-                            child: Text(
+                            child: const Text(
                               "Buy Now",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize:
-                                    MediaQuery.sizeOf(context).width * 0.012,
+                                fontSize: 16,
                               ),
                             ),
                           ),
@@ -240,7 +214,7 @@ class _DesktopState extends State<_Desktop> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.1,
+                  height: MediaQuery.sizeOf(context).width * 0.04,
                 ),
                 Text(
                   "端末詳細",
@@ -251,10 +225,12 @@ class _DesktopState extends State<_Desktop> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.01,
+                  height: MediaQuery.sizeOf(context).width * 0.02,
                 ),
                 SizedBox(
-                  width: MediaQuery.sizeOf(context).width * 0.5,
+                  width: isTablet()
+                      ? MediaQuery.sizeOf(context).width * 0.6
+                      : MediaQuery.sizeOf(context).width * 0.5,
                   child: Table(
                     columnWidths: const {
                       0: FlexColumnWidth(1),
@@ -265,35 +241,39 @@ class _DesktopState extends State<_Desktop> {
                       width: 2,
                     ),
                     children: [
-                      ...phoneDetails.asMap().entries.map(
-                            (e) => TableRow(
-                              children: [
-                                Container(
-                                  color: const Color(lightgrey),
-                                  padding: const EdgeInsets.all(15),
-                                  child: Text(
-                                    e.value.title,
-                                    style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.sizeOf(context).width *
-                                              0.012,
-                                    ),
-                                  ),
+                      ...deviceDetails!.entries.map(
+                        (e) => TableRow(
+                          children: [
+                            Container(
+                              color: const Color(lightgrey),
+                              padding: const EdgeInsets.all(15),
+                              child: Text(
+                                e.key,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: isTablet()
+                                      ? 14
+                                      : MediaQuery.sizeOf(context).width *
+                                          0.012,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Text(
-                                    e.value.value,
-                                    style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.sizeOf(context).width *
-                                              0.012,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          )
+                            Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Text(
+                                e.value,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: isTablet()
+                                      ? 14
+                                      : MediaQuery.sizeOf(context).width *
+                                          0.012,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -320,20 +300,29 @@ class _DesktopState extends State<_Desktop> {
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.02,
                 ),
-                const _CircularDropdown(
+                _CircularDropdown(
+                  height: MediaQuery.of(context).size.width * 0.05,
+                  width: MediaQuery.of(context).size.width * 0.6,
                   text: "お支払い方法について",
+                  fontSize: MediaQuery.sizeOf(context).width * 0.015,
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.02,
                 ),
-                const _CircularDropdown(
+                _CircularDropdown(
+                  height: MediaQuery.of(context).size.width * 0.05,
+                  width: MediaQuery.of(context).size.width * 0.6,
                   text: "お支払い方法について",
+                  fontSize: MediaQuery.sizeOf(context).width * 0.015,
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.02,
                 ),
-                const _CircularDropdown(
+                _CircularDropdown(
+                  height: MediaQuery.of(context).size.width * 0.05,
+                  width: MediaQuery.of(context).size.width * 0.6,
                   text: "お支払い方法について",
+                  fontSize: MediaQuery.sizeOf(context).width * 0.015,
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.02,

@@ -28,17 +28,11 @@ class _HoverToZoomState extends State<HoverToZoom>
   double zoomHoverY = 0.0;
   bool showPreview = false;
 
-  late Image image;
-
-  OverlayEntry? overlayEntry;
-
   late final AnimationController controller;
 
   @override
   void initState() {
     super.initState();
-
-    image = Image.asset(widget.imagePath);
 
     controller = AnimationController(
       vsync: this,
@@ -65,8 +59,9 @@ class _HoverToZoomState extends State<HoverToZoom>
             ? buildZoomedImage()
             : ClipRRect(
                 borderRadius: HoverToZoom.borderRadius,
-                child: image,
-              ),
+                child: Image.asset(
+                  widget.imagePath,
+                )),
       ),
     );
   }
@@ -90,7 +85,7 @@ class _HoverToZoomState extends State<HoverToZoom>
               ),
               child: Transform.scale(
                 scale: HoverToZoom.zoomScale,
-                child: image,
+                child: Image.asset(widget.imagePath),
               ),
             ),
           );

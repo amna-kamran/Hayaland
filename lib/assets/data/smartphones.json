@@ -1,6 +1,6 @@
 { "smartphones":
     {
-        "apple_items": [
+        "Apple": [
           {
             "grade": "J GRADE",
             "label": "Apple",
@@ -8,7 +8,7 @@
             "price": "¥45,000",
             "device details": {
               "Device Type": "Pre-owned",
-              "Model": "Apple iPhone 15 128GB",
+              "Model": "iPhone 15",
               "IMEI Number": "123456789012345",
               "Carrier": "Unlocked (US version)",
               "Color": "Various",
@@ -16,7 +16,8 @@
               "Accessories": "None, device only",
               "Malfunction": "None",
               "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present"
+              "Exterior Details": "Condition varies, scratches and wear may be present",
+              "Storage": "128GB"
             }
           },
           {
@@ -26,7 +27,7 @@
             "price": "¥58,000",
             "device details": {
               "Device Type": "Pre-owned",
-              "Model": "Apple iPhone 15 256GB",
+              "Model": "iPhone 15",
               "IMEI Number": "234567890123456",
               "Carrier": "Unlocked (US version)",
               "Color": "Various",
@@ -34,7 +35,8 @@
               "Accessories": "None, device only",
               "Malfunction": "None",
               "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present"
+              "Exterior Details": "Condition varies, scratches and wear may be present",
+              "Storage": "256GB"
             }
           },
           {
@@ -44,7 +46,7 @@
             "price": "¥70,000",
             "device details": {
               "Device Type": "Pre-owned",
-              "Model": "Apple iPhone 15 512GB",
+              "Model": "iPhone 15",
               "IMEI Number": "345678901234567",
               "Carrier": "Unlocked (US version)",
               "Color": "Various",
@@ -52,7 +54,8 @@
               "Accessories": "None, device only",
               "Malfunction": "None",
               "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present"
+              "Exterior Details": "Condition varies, scratches and wear may be present",
+              "Storage":"512GB"
             }
           },
           {
@@ -62,7 +65,7 @@
             "price": "¥60,000",
             "device details": {
               "Device Type": "Pre-owned",
-              "Model": "Apple iPhone 15 Pro 128GB",
+              "Model": "iPhone 15 Pro",
               "IMEI Number": "456789012345678",
               "Carrier": "Unlocked (US version)",
               "Color": "Various",
@@ -70,7 +73,8 @@
               "Accessories": "None, device only",
               "Malfunction": "None",
               "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present"
+              "Exterior Details": "Condition varies, scratches and wear may be present",
+              "Storage":"128GB"
             }
           },
           {
@@ -80,7 +84,7 @@
             "price": "¥75,000",
             "device details": {
               "Device Type": "Pre-owned",
-              "Model": "Apple iPhone 15 Pro 256GB",
+              "Model": "iPhone 15 Pro",
               "IMEI Number": "567890123456789",
               "Carrier": "Unlocked (US version)",
               "Color": "Various",
@@ -88,7 +92,8 @@
               "Accessories": "None, device only",
               "Malfunction": "None",
               "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present"
+              "Exterior Details": "Condition varies, scratches and wear may be present",
+              "Storage":"256GB"
             }
           },
           {
@@ -98,7 +103,7 @@
             "price": "¥80,000",
             "device details": {
               "Device Type": "Pre-owned",
-              "Model": "Apple iPhone 15 Pro 512GB",
+              "Model": "iPhone 15 Pro",
               "IMEI Number": "678901234567890",
               "Carrier": "Unlocked (US version)",
               "Color": "Various",
@@ -106,7 +111,8 @@
               "Accessories": "None, device only",
               "Malfunction": "None",
               "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present"
+              "Exterior Details": "Condition varies, scratches and wear may be present",
+              "Storage":"512GB"
             }
           },
           {
@@ -116,7 +122,7 @@
             "price": "¥90,000",
             "device details": {
               "Device Type": "Pre-owned",
-              "Model": "Apple iPhone 15 Pro 1TB",
+              "Model": "iPhone 15 Pro",
               "IMEI Number": "123456789012345",
               "Carrier": "Unlocked (US version)",
               "Color": "Various",
@@ -124,7 +130,8 @@
               "Accessories": "None, device only",
               "Malfunction": "None",
               "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present"
+              "Exterior Details": "Condition varies, scratches and wear may be present",
+              "Storage":"1TB"
             }
           },
           {
@@ -134,7 +141,7 @@
             "price": "¥65,000",
             "device details": {
               "Device Type": "Pre-owned",
-              "Model": "Apple iPhone 15 Pro Max 128GB",
+              "Model": "iPhone 15 Pro Max",
               "IMEI Number": "789012345678901",
               "Carrier": "Unlocked (US version)",
               "Color": "Various",
@@ -142,7 +149,8 @@
               "Accessories": "None, device only",
               "Malfunction": "None",
               "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present"
+              "Exterior Details": "Condition varies, scratches and wear may be present",
+              "Storage":"128GB"
             }
           },
           {
@@ -152,7 +160,7 @@
             "price": "¥85,000",
             "device details": {
               "Device Type": "Pre-owned",
-              "Model": "Apple iPhone 15 Pro Max 256GB",
+              "Model": "iPhone 15 Pro Max",
               "IMEI Number": "890123456789012",
               "Carrier": "Unlocked (US version)",
               "Color": "Various",
@@ -160,7 +168,8 @@
               "Accessories": "None, device only",
               "Malfunction": "None",
               "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present"
+              "Exterior Details": "Condition varies, scratches and wear may be present",
+              "Storage":"256GB"
             }
           },
           {
@@ -170,7 +179,7 @@
             "price": "¥90,000",
             "device details": {
               "Device Type": "Pre-owned",
-              "Model": "Apple iPhone 15 Pro Max 512GB",
+              "Model": "iPhone 15 Pro Max",
               "IMEI Number": "901234567890123",
               "Carrier": "Unlocked (US version)",
               "Color": "Various",
@@ -178,11 +187,12 @@
               "Accessories": "None, device only",
               "Malfunction": "None",
               "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present"
+              "Exterior Details": "Condition varies, scratches and wear may be present",
+              "Storage":"512GB"
             }
           }
         ],
-        "samsung_items": [
+        "Samsung": [
             {
               "grade": "J GRADE",
               "label": "Samsung",
@@ -190,7 +200,7 @@
               "price": "¥40,000",
               "device details": {
                 "Device Type": "Pre-owned",
-                "Model": "Samsung Galaxy Z Flip 256GB",
+                "Model": "Galaxy Z Flip",
                 "IMEI Number": "123456789012345",
                 "Carrier": "Unlocked",
                 "Color": "Various",
@@ -198,7 +208,8 @@
                 "Accessories": "None, device only",
                 "Malfunction": "None",
                 "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present"
+                "Exterior Details": "Condition varies, scratches and wear may be present",
+                "Storage":"256GB"
               }
             },
             {
@@ -208,7 +219,7 @@
               "price": "¥50,000",
               "device details": {
                 "Device Type": "Pre-owned",
-                "Model": "Samsung Galaxy Z Flip 512GB",
+                "Model": "Galaxy Z Flip",
                 "IMEI Number": "234567890123456",
                 "Carrier": "Unlocked",
                 "Color": "Various",
@@ -216,7 +227,8 @@
                 "Accessories": "None, device only",
                 "Malfunction": "None",
                 "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present"
+                "Exterior Details": "Condition varies, scratches and wear may be present",
+                "Storage":"512GB"
               }
             },
             {
@@ -226,7 +238,7 @@
               "price": "¥60,000",
               "device details": {
                 "Device Type": "Pre-owned",
-                "Model": "Samsung Galaxy Z Flip 1TB",
+                "Model": "Galaxy Z Flip",
                 "IMEI Number": "345678901234567",
                 "Carrier": "Unlocked",
                 "Color": "Various",
@@ -234,7 +246,8 @@
                 "Accessories": "None, device only",
                 "Malfunction": "None",
                 "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present"
+                "Exterior Details": "Condition varies, scratches and wear may be present",
+                "Storage":"1TB"
               }
             },
             {
@@ -244,7 +257,7 @@
               "price": "¥35,000",
               "device details": {
                 "Device Type": "Pre-owned",
-                "Model": "Samsung Galaxy S23 128GB",
+                "Model": "Galaxy S23",
                 "IMEI Number": "456789012345678",
                 "Carrier": "Unlocked",
                 "Color": "Various",
@@ -252,7 +265,8 @@
                 "Accessories": "None, device only",
                 "Malfunction": "None",
                 "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present"
+                "Exterior Details": "Condition varies, scratches and wear may be present",
+                "Storage":"128GB"
               }
             },
             {
@@ -262,7 +276,7 @@
               "price": "¥45,000",
               "device details": {
                 "Device Type": "Pre-owned",
-                "Model": "Samsung Galaxy S23 256GB",
+                "Model": "Galaxy S23",
                 "IMEI Number": "567890123456789",
                 "Carrier": "Unlocked",
                 "Color": "Various",
@@ -270,7 +284,8 @@
                 "Accessories": "None, device only",
                 "Malfunction": "None",
                 "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present"
+                "Exterior Details": "Condition varies, scratches and wear may be present",
+                "Storage":"256GB"
               }
             },
             {
@@ -280,7 +295,7 @@
               "price": "¥55,000",
               "device details": {
                 "Device Type": "Pre-owned",
-                "Model": "Samsung Galaxy S23 512GB",
+                "Model": "Galaxy S23",
                 "IMEI Number": "678901234567890",
                 "Carrier": "Unlocked",
                 "Color": "Various",
@@ -288,7 +303,8 @@
                 "Accessories": "None, device only",
                 "Malfunction": "None",
                 "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present"
+                "Exterior Details": "Condition varies, scratches and wear may be present",
+                "Storage":"512GB"
               }
             }
           ]

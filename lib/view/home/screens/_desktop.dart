@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of '../home_screen.dart';
 
 class _Desktop extends StatefulWidget {
@@ -13,23 +12,55 @@ class _DesktopState extends State<_Desktop> {
   void initState() {
     super.initState();
     getAppleItems();
+    getData();
   }
 
   List<dynamic> appleItems = [];
+  String selectedValue = dropDownValues[0];
+  Map<String, dynamic> data = {};
+  List<dynamic> filteredAppleItems = [];
 
   void getAppleItems() async {
     AppleProvider appleProvider = AppleProvider();
 
     List<dynamic> appleItems = await appleProvider.getApple();
+    setState(
+      () {
+        this.appleItems = appleItems;
+        filteredAppleItems = appleItems;
+      },
+    );
+  }
+
+  void getData() async {
+    Map<String, dynamic> data = await Filter.loadAllData();
+    setState(
+      () {
+        this.data = data;
+      },
+    );
+  }
+
+  void searchProducts(String query) {
     setState(() {
-      this.appleItems = appleItems;
+      if (query.isEmpty) {
+        filteredAppleItems = appleItems;
+      } else {
+        String formattedQuery = query.replaceAll(' ', '').toLowerCase();
+        filteredAppleItems = appleItems.where((item) {
+          String formattedDesc = item.desc.replaceAll(' ', '').toLowerCase();
+          return formattedDesc.contains(formattedQuery);
+        }).toList();
+      }
     });
   }
 
-  void onTap() {
-    Navigator.pushNamed(
+  onTap(Smartphone smartphone) {
+    Navigator.push(
       context,
-      '/product',
+      MaterialPageRoute(
+        builder: (context) => ProductScreen(phoneDetails: smartphone),
+      ),
     );
   }
 
@@ -90,19 +121,40 @@ class _DesktopState extends State<_Desktop> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.sizeOf(context).width * 0.2,
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
+                      child: CategoryExpanded(
+                        title: "カテゴリー",
+                        innerChildren: [
+                          ...data.keys.toList().map(
+                                (e) => CategoryExpanded(
+                                  title: e,
+                                  innerChildren: [
+                                    for (var en in data[e]['models'].keys)
+                                      CategoryExpanded(
+                                        title: en,
+                                        innerChildren: [
+                                          for (var item in data[e]['models']
+                                              [en])
+                                            CategoryExpanded(
+                                              innerChild: Text(
+                                                item,
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                  ],
+                                ),
+                              ),
+                        ],
                       ),
-                      child: const CategoryExpanded(),
                     ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SearchField(
-                            onChanged: (value) {},
+                            onChanged: searchProducts,
                             fontSize: 14,
                             iconSize: 20,
                           ),
@@ -112,13 +164,13 @@ class _DesktopState extends State<_Desktop> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               RichText(
-                                text: const TextSpan(
-                                  text: "100",
-                                  style: TextStyle(
+                                text: TextSpan(
+                                  text: filteredAppleItems.length.toString(),
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: Colors.grey,
                                   ),
-                                  children: [
+                                  children: const [
                                     WidgetSpan(
                                       child: SizedBox(
                                         width: 5.0,
@@ -134,31 +186,13 @@ class _DesktopState extends State<_Desktop> {
                                   ],
                                 ),
                               ),
-                              Row(
+                              const Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(3.0),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0,
-                                      vertical: 5.0,
-                                    ),
-                                    child: const Text(
-                                      "Displayed results: 24",
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: Space.x2,
                                   ),
-                                  const DropDown(
-                                    dropDownValues: dropDownValues,
-                                  ),
+                                  CustomDropDown(),
                                 ],
                               )
                             ],
@@ -178,7 +212,7 @@ class _DesktopState extends State<_Desktop> {
                                     mainAxisSpacing: 10,
                                     childAspectRatio: 0.6),
                             children: [
-                              ...appleItems
+                              ...filteredAppleItems
                                   .asMap()
                                   .entries
                                   .map((entry) => _InfoTile(
@@ -186,7 +220,9 @@ class _DesktopState extends State<_Desktop> {
                                         label: entry.value.label ?? '',
                                         desc: entry.value.desc ?? '',
                                         price: entry.value.price ?? '',
-                                        onTap: onTap,
+                                        onTap: () {
+                                          onTap(entry.value);
+                                        },
                                       )),
                             ],
                           ),

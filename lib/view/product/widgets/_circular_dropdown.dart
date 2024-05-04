@@ -2,8 +2,14 @@ part of '../product_screen.dart';
 
 class _CircularDropdown extends StatefulWidget {
   final String text;
+  final double width;
+  final double height;
+  final double fontSize;
   const _CircularDropdown({
     required this.text,
+    required this.width,
+    required this.height,
+    required this.fontSize,
   });
 
   @override
@@ -30,8 +36,8 @@ class _CircularDropdownState extends State<_CircularDropdown> {
           InkWell(
             onTap: () => _toggle(),
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.6,
-              height: MediaQuery.of(context).size.width * 0.05,
+              width: widget.width,
+              height: widget.height,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100), // Circular border
                 color: Colors.white,
@@ -46,7 +52,7 @@ class _CircularDropdownState extends State<_CircularDropdown> {
                   Text(
                     widget.text,
                     style: TextStyle(
-                      fontSize: MediaQuery.sizeOf(context).width * 0.015,
+                      fontSize: widget.fontSize,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

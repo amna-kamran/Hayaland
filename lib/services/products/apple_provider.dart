@@ -11,7 +11,7 @@ class AppleProvider {
   Future<List<dynamic>> getApple() async {
     Map<String, dynamic> jsonData =
         await loadJsonFromAssets('lib/assets/data/smartphones.json');
-    final data = jsonData['smartphones']["apple_items"];
+    final data = jsonData['smartphones']["Apple"];
     List<dynamic> dataList = data.asMap().entries.map((entry) {
       return Smartphone.fromJson(entry.value);
     }).toList();

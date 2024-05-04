@@ -1,103 +1,68 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:web_task1/constants/colors.dart';
 import 'package:web_task1/constants/drop_down_values.dart';
 
-class DropDown extends StatefulWidget {
-  final List<String> dropDownValues;
-  const DropDown({
-    super.key,
-    required this.dropDownValues,
-  });
+class CustomDropDown extends StatefulWidget {
+  const CustomDropDown({super.key});
 
   @override
-  State<DropDown> createState() => _DropDownState();
+  State<CustomDropDown> createState() => _CustomDropDownState();
 }
 
-class _DropDownState extends State<DropDown> {
-  String _selectedOption = dropDownValues[0];
-  bool _isDropdownOpen = false;
+String selectedValue = dropDownValues[0];
 
-  void _toggleDropdown() {
-    setState(() {
-      _isDropdownOpen = !_isDropdownOpen;
-    });
-  }
-
-  void _selectOption(String option) {
-    setState(() {
-      _selectedOption = option;
-      _isDropdownOpen = false;
-    });
-  }
-
+class _CustomDropDownState extends State<CustomDropDown> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: _toggleDropdown,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 3.0,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(3.0),
-                    ),
-                    width: MediaQuery.sizeOf(context).width * 0.18,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(child: Text(_selectedOption)),
-                        Icon(_isDropdownOpen
-                            ? Icons.arrow_drop_up
-                            : Icons.arrow_drop_down),
-                      ],
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton2<String>(
+          iconStyleData: const IconStyleData(
+            icon: Icon(
+              CupertinoIcons.chevron_down,
+              size: 18,
+            ),
+          ),
+          isDense: true,
+          items: dropDownValues
+              .map(
+                (item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      color: Color(darkgrey),
+                      fontSize: 14,
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          if (_isDropdownOpen)
-            Positioned(
-              top: 320, // Adjust this value as needed
-              left: 0,
-              right: 0,
-              child: Container(
-                width: 200,
-                decoration: BoxDecoration(
-                  border: Border.all(color: const Color(lightgrey)),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Column(
-                  children: dropDownValues
-                      .map(
-                        (option) => GestureDetector(
-                          onTap: () => _selectOption(option),
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: _selectedOption == option
-                                  ? Colors.blue.withOpacity(0.2)
-                                  : null,
-                            ),
-                            child: Text(option),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
+              )
+              .toList(),
+          value: selectedValue,
+          onChanged: (String? value) {
+            setState(
+              () {
+                selectedValue = value!;
+              },
+            );
+          },
+          buttonStyleData: ButtonStyleData(
+            padding: const EdgeInsets.only(right: 8),
+            height: 35,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(
+                color: const Color(darkgrey),
               ),
             ),
-        ],
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+          ),
+          menuItemStyleData: MenuItemStyleData(
+              overlayColor: MaterialStateProperty.all(Colors.transparent)),
+        ),
       ),
     );
   }

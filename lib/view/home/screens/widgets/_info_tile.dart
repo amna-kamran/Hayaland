@@ -30,6 +30,8 @@ class _InfoTileState extends State<_InfoTile>
     curve: Curves.fastOutSlowIn,
   );
 
+  bool hover = false;
+
   @override
   void initState() {
     super.initState();
@@ -44,12 +46,16 @@ class _InfoTileState extends State<_InfoTile>
     super.dispose();
   }
 
-  void _startAnimation(bool value) {
+  void onHover(bool value) {
     if (value) {
       _controller.forward(from: 0.0);
     } else {
       _controller.reverse();
     }
+
+    setState(() {
+      hover = value;
+    });
   }
 
   @override
@@ -59,7 +65,7 @@ class _InfoTileState extends State<_InfoTile>
     return InkWell(
       onTap: widget.onTap,
       onHover: (value) {
-        _startAnimation(value);
+        onHover(value);
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -92,7 +98,9 @@ class _InfoTileState extends State<_InfoTile>
               ),
               child: Stack(children: [
                 Image.asset(
-                  'lib/assets/images/iphone.jpg',
+                  hover
+                      ? 'lib/assets/images/iphone-back.jpg'
+                      : 'lib/assets/images/iphone.jpg',
                   fit: BoxFit.contain,
                 ),
                 Align(
@@ -105,7 +113,9 @@ class _InfoTileState extends State<_InfoTile>
                             MediaQuery.sizeOf(context).width * 0.02),
                     child: isDesktop()
                         ? ScaleTransition(
-                            scale: _animation, child: const VisibilityIcon())
+                            scale: _animation,
+                            child: const VisibilityIcon(),
+                          )
                         : const VisibilityIcon(),
                   ),
                 ),

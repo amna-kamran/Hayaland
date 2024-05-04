@@ -9,6 +9,7 @@ class DeviceDetails {
   String? malfunction;
   String? grade;
   String? exteriorDetails;
+  String? storage;
 
   DeviceDetails(
       {this.deviceType,
@@ -20,7 +21,8 @@ class DeviceDetails {
       this.accessories,
       this.malfunction,
       this.grade,
-      this.exteriorDetails});
+      this.exteriorDetails,
+      this.storage});
 
   DeviceDetails.fromJson(Map<String, dynamic> json) {
     deviceType = json["Device Type"];
@@ -33,6 +35,7 @@ class DeviceDetails {
     malfunction = json["Malfunction"];
     grade = json["Grade"];
     exteriorDetails = json["Exterior Details"];
+    storage = json["Storage"];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,32 +50,33 @@ class DeviceDetails {
     data["Malfunction"] = malfunction;
     data["Grade"] = grade;
     data["Exterior Details"] = exteriorDetails;
+    data["Storage"] = storage;
     return data;
   }
 
-  DeviceDetails copyWith({
-    String? deviceType,
-    String? model,
-    String? imeiNumber,
-    String? carrier,
-    String? color,
-    String? maximumBatteryCapacity,
-    String? accessories,
-    String? malfunction,
-    String? grade,
-    String? exteriorDetails,
-  }) =>
+  DeviceDetails copyWith(
+          {String? deviceType,
+          String? model,
+          String? imeiNumber,
+          String? carrier,
+          String? color,
+          String? maximumBatteryCapacity,
+          String? accessories,
+          String? malfunction,
+          String? grade,
+          String? exteriorDetails,
+          String? storage}) =>
       DeviceDetails(
-        deviceType: deviceType ?? this.deviceType,
-        model: model ?? this.model,
-        imeiNumber: imeiNumber ?? this.imeiNumber,
-        carrier: carrier ?? this.carrier,
-        color: color ?? this.color,
-        maximumBatteryCapacity:
-            maximumBatteryCapacity ?? this.maximumBatteryCapacity,
-        accessories: accessories ?? this.accessories,
-        malfunction: malfunction ?? this.malfunction,
-        grade: grade ?? this.grade,
-        exteriorDetails: exteriorDetails ?? this.exteriorDetails,
-      );
+          deviceType: deviceType ?? this.deviceType,
+          model: model ?? this.model,
+          imeiNumber: imeiNumber ?? this.imeiNumber,
+          carrier: carrier ?? this.carrier,
+          color: color ?? this.color,
+          maximumBatteryCapacity:
+              maximumBatteryCapacity ?? this.maximumBatteryCapacity,
+          accessories: accessories ?? this.accessories,
+          malfunction: malfunction ?? this.malfunction,
+          grade: grade ?? this.grade,
+          exteriorDetails: exteriorDetails ?? this.exteriorDetails,
+          storage: storage ?? this.storage);
 }
