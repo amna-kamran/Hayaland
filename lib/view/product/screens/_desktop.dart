@@ -14,17 +14,32 @@ class _DesktopState extends State<_Desktop> {
   bool isTablet() =>
       MediaQuery.sizeOf(context).width < AppBreakpoints.lg &&
       MediaQuery.sizeOf(context).width > AppBreakpoints.xs;
+  final _controller = PageController(
+    viewportFraction: 1,
+    initialPage: 0,
+  );
+  int selectedIndex = 0;
+  void _setIndex(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final md = MediaQuery.sizeOf(context).width;
     Map<String, dynamic>? deviceDetails =
         widget.phoneDetails.deviceDetails?.toJson();
+    final List page = [
+      _Table1(deviceDetails: deviceDetails, isTablet: isTablet()),
+      _Table1(deviceDetails: deviceDetails, isTablet: isTablet()),
+    ];
 
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
-            MediaQuery.sizeOf(context).width < AppBreakpoints.lg
+            md < AppBreakpoints.lg
                 ? const MobileAppBar()
                 : const DesktopAppBar(),
           ];
@@ -32,31 +47,29 @@ class _DesktopState extends State<_Desktop> {
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.sizeOf(context).width * 0.02,
+              horizontal: md * 0.02,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.015,
+                  height: md * 0.015,
                 ),
                 Container(
                   padding: isTablet()
                       ? EdgeInsets.symmetric(
-                          vertical: MediaQuery.sizeOf(context).width * 0.05,
+                          vertical: md * 0.05,
                         )
                       : EdgeInsets.zero,
-                  width: isTablet()
-                      ? MediaQuery.sizeOf(context).width * 0.6
-                      : MediaQuery.sizeOf(context).width * 1,
+                  width: isTablet() ? md * 0.6 : md * 1,
                   child: const Text(
                     textAlign: TextAlign.center,
                     "STRADE [Home]→ 2. Outlet→  Smartphone → iPhone→  iPhone 13 Pro→ [Junk goods] Apple|iPhone 13 Pro 128GB|SIM Free",
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.03,
+                  height: md * 0.03,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -66,13 +79,13 @@ class _DesktopState extends State<_Desktop> {
                       dimensions: 490,
                     ),
                     SizedBox(
-                      width: MediaQuery.sizeOf(context).width * 0.03,
+                      width: md * 0.03,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: MediaQuery.sizeOf(context).width * 0.4,
+                          width: md * 0.4,
                           child: Text(
                             widget.phoneDetails.desc ?? '',
                             style: TextStyle(
@@ -82,11 +95,10 @@ class _DesktopState extends State<_Desktop> {
                           ),
                         ),
                         SizedBox(
-                          height: MediaQuery.sizeOf(context).width * 0.01,
+                          height: md * 0.01,
                         ),
                         Container(
-                          padding: EdgeInsets.all(
-                              MediaQuery.sizeOf(context).width * 0.004),
+                          padding: EdgeInsets.all(md * 0.004),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.grey),
@@ -100,30 +112,28 @@ class _DesktopState extends State<_Desktop> {
                           ),
                         ),
                         SizedBox(
-                          height: MediaQuery.sizeOf(context).width * 0.01,
+                          height: md * 0.01,
                         ),
                         Text(
                           widget.phoneDetails.price ?? '',
                           style: TextStyle(
-                            fontSize: isTablet()
-                                ? MediaQuery.sizeOf(context).width * 0.03
-                                : 28,
+                            fontSize: isTablet() ? md * 0.03 : 28,
                             fontWeight: FontWeight.w500,
                             color: const Color.fromARGB(255, 185, 41, 31),
                           ),
                         ),
                         SizedBox(
-                          height: MediaQuery.sizeOf(context).width * 0.005,
+                          height: md * 0.005,
                         ),
                         SizedBox(
-                          width: MediaQuery.sizeOf(context).width * 0.4,
+                          width: md * 0.4,
                           child: const Divider(
                             thickness: 1,
                             color: Color(lightgrey),
                           ),
                         ),
                         SizedBox(
-                          height: MediaQuery.sizeOf(context).width * 0.01,
+                          height: md * 0.01,
                         ),
                         Row(
                           children: [
@@ -133,10 +143,10 @@ class _DesktopState extends State<_Desktop> {
                               color: Colors.black87,
                             ),
                             SizedBox(
-                              width: MediaQuery.sizeOf(context).width * 0.005,
+                              width: md * 0.005,
                             ),
                             SizedBox(
-                              width: MediaQuery.sizeOf(context).width * 0.4,
+                              width: md * 0.4,
                               child: InkWell(
                                 onTap: () {},
                                 child: const Text(
@@ -150,12 +160,12 @@ class _DesktopState extends State<_Desktop> {
                               ),
                             ),
                             SizedBox(
-                              width: MediaQuery.sizeOf(context).width * 0.001,
+                              width: md * 0.001,
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.sizeOf(context).width * 0.01,
+                          height: md * 0.01,
                         ),
                         SizedBox(
                             width: 150,
@@ -182,10 +192,10 @@ class _DesktopState extends State<_Desktop> {
                               ),
                             )),
                         SizedBox(
-                          height: MediaQuery.sizeOf(context).width * 0.01,
+                          height: md * 0.01,
                         ),
                         SizedBox(
-                          width: MediaQuery.sizeOf(context).width * 0.3,
+                          width: md * 0.3,
                           height: 50,
                           child: ElevatedButton(
                             style: ButtonStyle(
@@ -214,119 +224,145 @@ class _DesktopState extends State<_Desktop> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.04,
+                  height: md * 0.04,
                 ),
-                Text(
-                  "端末詳細",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: MediaQuery.sizeOf(context).width * 0.02,
-                    fontWeight: FontWeight.normal,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        _setIndex(0);
+                      },
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                      child: Text(
+                        "端末詳細",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: MediaQuery.sizeOf(context).width * 0.02,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: Space.x2),
+                    InkWell(
+                      onTap: () {
+                        _setIndex(1);
+                      },
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                      child: Text(
+                        "2nd",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: MediaQuery.sizeOf(context).width * 0.02,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: Space.y,
+                ),
+                //pg
+                SizedBox(
+                  height: md * 0.5,
+                  width: isTablet() ? md * 0.6 : md * 0.5,
+                  child: PageView.builder(
+                    controller: _controller,
+                    itemBuilder: (context, index) {
+                      return (page[selectedIndex]);
+                    },
+                  ),
+                ),
+
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                  height: md * 0.06,
+                  width: md * 0.9,
+                  child: Center(
+                    child: Text(
+                      "ユーザガイド",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: md * 0.02,
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.02,
+                  height: md * 0.02,
                 ),
-                SizedBox(
-                  width: isTablet()
-                      ? MediaQuery.sizeOf(context).width * 0.6
-                      : MediaQuery.sizeOf(context).width * 0.5,
-                  child: Table(
-                    columnWidths: const {
-                      0: FlexColumnWidth(1),
-                      1: FlexColumnWidth(2),
-                    },
-                    border: TableBorder.all(
+                CategoryExpanded(
+                  width: 300,
+                  title: const Text(
+                    "お支払い方法について",
+                    style: TextStyle(
                       color: Colors.black,
-                      width: 2,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
                     ),
-                    children: [
-                      ...deviceDetails!.entries.map(
-                        (e) => TableRow(
+                  ),
+                  innerChildren: [
+                    Table(
+                      columnWidths: const {
+                        0: FlexColumnWidth(1),
+                        1: FlexColumnWidth(1),
+                        2: FlexColumnWidth(1),
+                      },
+                      border: TableBorder.all(
+                        color: Colors.black,
+                        width: 2,
+                      ),
+                      children: [
+                        TableRow(
                           children: [
-                            Container(
-                              color: const Color(lightgrey),
+                            Padding(
                               padding: const EdgeInsets.all(15),
                               child: Text(
-                                e.key,
+                                textAlign: TextAlign.center,
+                                "クレジットカード決済クレジットカードをご利用いただけます。",
                                 style: TextStyle(
                                   fontWeight: FontWeight.normal,
-                                  fontSize: isTablet()
-                                      ? 14
-                                      : MediaQuery.sizeOf(context).width *
-                                          0.012,
+                                  fontSize: isTablet() ? 14 : md * 0.012,
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(15),
                               child: Text(
-                                e.value,
+                                textAlign: TextAlign.center,
+                                "仮想通貨送金仮想通貨（リップル）をご利用いただけます。",
                                 style: TextStyle(
                                   fontWeight: FontWeight.normal,
-                                  fontSize: isTablet()
-                                      ? 14
-                                      : MediaQuery.sizeOf(context).width *
-                                          0.012,
+                                  fontSize: isTablet() ? 14 : md * 0.012,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "銀行口座振込銀行振込をご利用いただけます。",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: isTablet() ? 14 : md * 0.012,
                                 ),
                               ),
                             ),
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.1,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  height: MediaQuery.sizeOf(context).width * 0.06,
-                  width: MediaQuery.sizeOf(context).width * 0.9,
-                  child: Center(
-                    child: Text(
-                      "ユーザガイド",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: MediaQuery.sizeOf(context).width * 0.02,
-                      ),
+                      ],
                     ),
-                  ),
+                  ],
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.02,
-                ),
-                _CircularDropdown(
-                  height: MediaQuery.of(context).size.width * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  text: "お支払い方法について",
-                  fontSize: MediaQuery.sizeOf(context).width * 0.015,
-                ),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.02,
-                ),
-                _CircularDropdown(
-                  height: MediaQuery.of(context).size.width * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  text: "お支払い方法について",
-                  fontSize: MediaQuery.sizeOf(context).width * 0.015,
-                ),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.02,
-                ),
-                _CircularDropdown(
-                  height: MediaQuery.of(context).size.width * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  text: "お支払い方法について",
-                  fontSize: MediaQuery.sizeOf(context).width * 0.015,
-                ),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.02,
-                ),
+                  height: md * 0.05,
+                )
               ],
             ),
           ),

@@ -5,7 +5,17 @@ import 'package:web_task1/constants/colors.dart';
 import 'package:web_task1/constants/drop_down_values.dart';
 
 class CustomDropDown extends StatefulWidget {
-  const CustomDropDown({super.key});
+  final double fontSize;
+  final double iconSize;
+  final double height;
+  final double width;
+  const CustomDropDown({
+    super.key,
+    required this.fontSize,
+    required this.iconSize,
+    required this.height,
+    required this.width,
+  });
 
   @override
   State<CustomDropDown> createState() => _CustomDropDownState();
@@ -19,10 +29,11 @@ class _CustomDropDownState extends State<CustomDropDown> {
     return Center(
       child: DropdownButtonHideUnderline(
         child: DropdownButton2<String>(
-          iconStyleData: const IconStyleData(
+          iconStyleData: IconStyleData(
             icon: Icon(
               CupertinoIcons.chevron_down,
-              size: 18,
+              size: widget.iconSize,
+              color: Colors.black,
             ),
           ),
           isDense: true,
@@ -32,9 +43,9 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   value: item,
                   child: Text(
                     item,
-                    style: const TextStyle(
-                      color: Color(darkgrey),
-                      fontSize: 14,
+                    style: TextStyle(
+                      color: const Color(darkgrey),
+                      fontSize: widget.fontSize,
                     ),
                   ),
                 ),
@@ -49,14 +60,14 @@ class _CustomDropDownState extends State<CustomDropDown> {
             );
           },
           buttonStyleData: ButtonStyleData(
-            padding: const EdgeInsets.only(right: 8),
-            height: 35,
+            height: widget.height,
+            width: widget.width,
+            padding: const EdgeInsets.all(5.0),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(5),
               border: Border.all(
                 color: const Color(darkgrey),
               ),
+              borderRadius: BorderRadius.circular(3.0),
             ),
             overlayColor: MaterialStateProperty.all(Colors.transparent),
           ),

@@ -1,314 +1,312 @@
-{ "smartphones":
-    {
-        "Apple": [
-          {
-            "grade": "J GRADE",
-            "label": "Apple",
-            "desc": "[Junk] Apple | iPhone 15 128GB | SIM free",
-            "price": "¥45,000",
-            "device details": {
-              "Device Type": "Pre-owned",
-              "Model": "iPhone 15",
-              "IMEI Number": "123456789012345",
-              "Carrier": "Unlocked (US version)",
-              "Color": "Various",
-              "Maximum Battery Capacity": "85%",
-              "Accessories": "None, device only",
-              "Malfunction": "None",
-              "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present",
-              "Storage": "128GB"
-            }
-          },
-          {
-            "grade": "J GRADE",
-            "label": "Apple",
-            "desc": "[Junk] Apple | iPhone 15 256GB | SIM free",
-            "price": "¥58,000",
-            "device details": {
-              "Device Type": "Pre-owned",
-              "Model": "iPhone 15",
-              "IMEI Number": "234567890123456",
-              "Carrier": "Unlocked (US version)",
-              "Color": "Various",
-              "Maximum Battery Capacity": "80%",
-              "Accessories": "None, device only",
-              "Malfunction": "None",
-              "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present",
-              "Storage": "256GB"
-            }
-          },
-          {
-            "grade": "J GRADE",
-            "label": "Apple",
-            "desc": "[Junk] Apple | iPhone 15 512GB | SIM free",
-            "price": "¥70,000",
-            "device details": {
-              "Device Type": "Pre-owned",
-              "Model": "iPhone 15",
-              "IMEI Number": "345678901234567",
-              "Carrier": "Unlocked (US version)",
-              "Color": "Various",
-              "Maximum Battery Capacity": "75%",
-              "Accessories": "None, device only",
-              "Malfunction": "None",
-              "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present",
-              "Storage":"512GB"
-            }
-          },
-          {
-            "grade": "J GRADE",
-            "label": "Apple",
-            "desc": "[Junk] Apple | iPhone 15 Pro 128GB | SIM free",
-            "price": "¥60,000",
-            "device details": {
-              "Device Type": "Pre-owned",
-              "Model": "iPhone 15 Pro",
-              "IMEI Number": "456789012345678",
-              "Carrier": "Unlocked (US version)",
-              "Color": "Various",
-              "Maximum Battery Capacity": "90%",
-              "Accessories": "None, device only",
-              "Malfunction": "None",
-              "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present",
-              "Storage":"128GB"
-            }
-          },
-          {
-            "grade": "J GRADE",
-            "label": "Apple",
-            "desc": "[Junk] Apple | iPhone 15 Pro 256GB | SIM free",
-            "price": "¥75,000",
-            "device details": {
-              "Device Type": "Pre-owned",
-              "Model": "iPhone 15 Pro",
-              "IMEI Number": "567890123456789",
-              "Carrier": "Unlocked (US version)",
-              "Color": "Various",
-              "Maximum Battery Capacity": "95%",
-              "Accessories": "None, device only",
-              "Malfunction": "None",
-              "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present",
-              "Storage":"256GB"
-            }
-          },
-          {
-            "grade": "J GRADE",
-            "label": "Apple",
-            "desc": "[Junk] Apple | iPhone 15 Pro 512GB | SIM free",
-            "price": "¥80,000",
-            "device details": {
-              "Device Type": "Pre-owned",
-              "Model": "iPhone 15 Pro",
-              "IMEI Number": "678901234567890",
-              "Carrier": "Unlocked (US version)",
-              "Color": "Various",
-              "Maximum Battery Capacity": "97%",
-              "Accessories": "None, device only",
-              "Malfunction": "None",
-              "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present",
-              "Storage":"512GB"
-            }
-          },
-          {
-            "grade": "J GRADE",
-            "label": "Apple",
-            "desc": "[Junk] Apple | iPhone 15 Pro 1TB | SIM free",
-            "price": "¥90,000",
-            "device details": {
-              "Device Type": "Pre-owned",
-              "Model": "iPhone 15 Pro",
-              "IMEI Number": "123456789012345",
-              "Carrier": "Unlocked (US version)",
-              "Color": "Various",
-              "Maximum Battery Capacity": "99%",
-              "Accessories": "None, device only",
-              "Malfunction": "None",
-              "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present",
-              "Storage":"1TB"
-            }
-          },
-          {
-            "grade": "J GRADE",
-            "label": "Apple",
-            "desc": "[Junk] Apple | iPhone 15 Pro Max 128GB | SIM free",
-            "price": "¥65,000",
-            "device details": {
-              "Device Type": "Pre-owned",
-              "Model": "iPhone 15 Pro Max",
-              "IMEI Number": "789012345678901",
-              "Carrier": "Unlocked (US version)",
-              "Color": "Various",
-              "Maximum Battery Capacity": "88%",
-              "Accessories": "None, device only",
-              "Malfunction": "None",
-              "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present",
-              "Storage":"128GB"
-            }
-          },
-          {
-            "grade": "J GRADE",
-            "label": "Apple",
-            "desc": "[Junk] Apple | iPhone 15 Pro Max 256GB | SIM free",
-            "price": "¥85,000",
-            "device details": {
-              "Device Type": "Pre-owned",
-              "Model": "iPhone 15 Pro Max",
-              "IMEI Number": "890123456789012",
-              "Carrier": "Unlocked (US version)",
-              "Color": "Various",
-              "Maximum Battery Capacity": "92%",
-              "Accessories": "None, device only",
-              "Malfunction": "None",
-              "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present",
-              "Storage":"256GB"
-            }
-          },
-          {
-            "grade": "J GRADE",
-            "label": "Apple",
-            "desc": "[Junk] Apple | iPhone 15 Pro Max 512GB | SIM free",
-            "price": "¥90,000",
-            "device details": {
-              "Device Type": "Pre-owned",
-              "Model": "iPhone 15 Pro Max",
-              "IMEI Number": "901234567890123",
-              "Carrier": "Unlocked (US version)",
-              "Color": "Various",
-              "Maximum Battery Capacity": "98%",
-              "Accessories": "None, device only",
-              "Malfunction": "None",
-              "Grade": "C",
-              "Exterior Details": "Condition varies, scratches and wear may be present",
-              "Storage":"512GB"
-            }
-          }
-        ],
-        "Samsung": [
-            {
-              "grade": "J GRADE",
-              "label": "Samsung",
-              "desc": "[Junk] Samsung | Galaxy Z Flip 256GB | SIM free",
-              "price": "¥40,000",
-              "device details": {
-                "Device Type": "Pre-owned",
-                "Model": "Galaxy Z Flip",
-                "IMEI Number": "123456789012345",
-                "Carrier": "Unlocked",
-                "Color": "Various",
-                "Maximum Battery Capacity": "85%",
-                "Accessories": "None, device only",
-                "Malfunction": "None",
-                "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present",
-                "Storage":"256GB"
-              }
-            },
-            {
-              "grade": "J GRADE",
-              "label": "Samsung",
-              "desc": "[Junk] Samsung | Galaxy Z Flip 512GB | SIM free",
-              "price": "¥50,000",
-              "device details": {
-                "Device Type": "Pre-owned",
-                "Model": "Galaxy Z Flip",
-                "IMEI Number": "234567890123456",
-                "Carrier": "Unlocked",
-                "Color": "Various",
-                "Maximum Battery Capacity": "80%",
-                "Accessories": "None, device only",
-                "Malfunction": "None",
-                "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present",
-                "Storage":"512GB"
-              }
-            },
-            {
-              "grade": "J GRADE",
-              "label": "Samsung",
-              "desc": "[Junk] Samsung | Galaxy Z Flip 1TB | SIM free",
-              "price": "¥60,000",
-              "device details": {
-                "Device Type": "Pre-owned",
-                "Model": "Galaxy Z Flip",
-                "IMEI Number": "345678901234567",
-                "Carrier": "Unlocked",
-                "Color": "Various",
-                "Maximum Battery Capacity": "75%",
-                "Accessories": "None, device only",
-                "Malfunction": "None",
-                "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present",
-                "Storage":"1TB"
-              }
-            },
-            {
-              "grade": "J GRADE",
-              "label": "Samsung",
-              "desc": "[Junk] Samsung | Galaxy S23 128GB | SIM free",
-              "price": "¥35,000",
-              "device details": {
-                "Device Type": "Pre-owned",
-                "Model": "Galaxy S23",
-                "IMEI Number": "456789012345678",
-                "Carrier": "Unlocked",
-                "Color": "Various",
-                "Maximum Battery Capacity": "90%",
-                "Accessories": "None, device only",
-                "Malfunction": "None",
-                "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present",
-                "Storage":"128GB"
-              }
-            },
-            {
-              "grade": "J GRADE",
-              "label": "Samsung",
-              "desc": "[Junk] Samsung | Galaxy S23 256GB | SIM free",
-              "price": "¥45,000",
-              "device details": {
-                "Device Type": "Pre-owned",
-                "Model": "Galaxy S23",
-                "IMEI Number": "567890123456789",
-                "Carrier": "Unlocked",
-                "Color": "Various",
-                "Maximum Battery Capacity": "85%",
-                "Accessories": "None, device only",
-                "Malfunction": "None",
-                "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present",
-                "Storage":"256GB"
-              }
-            },
-            {
-              "grade": "J GRADE",
-              "label": "Samsung",
-              "desc": "[Junk] Samsung | Galaxy S23 512GB | SIM free",
-              "price": "¥55,000",
-              "device details": {
-                "Device Type": "Pre-owned",
-                "Model": "Galaxy S23",
-                "IMEI Number": "678901234567890",
-                "Carrier": "Unlocked",
-                "Color": "Various",
-                "Maximum Battery Capacity": "80%",
-                "Accessories": "None, device only",
-                "Malfunction": "None",
-                "Grade": "C",
-                "Exterior Details": "Condition varies, scratches and wear may be present",
-                "Storage":"512GB"
-              }
-            }
-          ]
+{
+  "smartphones": {
+    "Apple": [
+      {
+        "grade": "B GRADE",
+        "label": "Apple",
+        "desc": "[Junk] Apple | iPhone 15 128GB | SIM free",
+        "price": "¥45,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "iPhone 15",
+          "IMEI Number": "123456789012345",
+          "Carrier": "Unlocked (US version)",
+          "Color": "Various",
+          "Maximum Battery Capacity": "85%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "128GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Apple",
+        "desc": "[Junk] Apple | iPhone 15 256GB | SIM free",
+        "price": "¥58,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "iPhone 15",
+          "IMEI Number": "234567890123456",
+          "Carrier": "Unlocked (US version)",
+          "Color": "Various",
+          "Maximum Battery Capacity": "80%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "256GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Apple",
+        "desc": "[Junk] Apple | iPhone 15 512GB | SIM free",
+        "price": "¥70,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "iPhone 15",
+          "IMEI Number": "345678901234567",
+          "Carrier": "Unlocked (US version)",
+          "Color": "Various",
+          "Maximum Battery Capacity": "75%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "512GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Apple",
+        "desc": "[Junk] Apple | iPhone 15 Pro 128GB | SIM free",
+        "price": "¥60,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "iPhone 15 Pro",
+          "IMEI Number": "456789012345678",
+          "Carrier": "Unlocked (US version)",
+          "Color": "Various",
+          "Maximum Battery Capacity": "90%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "128GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Apple",
+        "desc": "[Junk] Apple | iPhone 15 Pro 256GB | SIM free",
+        "price": "¥75,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "iPhone 15 Pro",
+          "IMEI Number": "567890123456789",
+          "Carrier": "Unlocked (US version)",
+          "Color": "Various",
+          "Maximum Battery Capacity": "95%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "256GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Apple",
+        "desc": "[Junk] Apple | iPhone 15 Pro 512GB | SIM free",
+        "price": "¥80,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "iPhone 15 Pro",
+          "IMEI Number": "678901234567890",
+          "Carrier": "Unlocked (US version)",
+          "Color": "Various",
+          "Maximum Battery Capacity": "97%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "512GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Apple",
+        "desc": "[Junk] Apple | iPhone 15 Pro 1TB | SIM free",
+        "price": "¥90,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "iPhone 15 Pro",
+          "IMEI Number": "123456789012345",
+          "Carrier": "Unlocked (US version)",
+          "Color": "Various",
+          "Maximum Battery Capacity": "99%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "1TB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Apple",
+        "desc": "[Junk] Apple | iPhone 15 Pro Max 128GB | SIM free",
+        "price": "¥65,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "iPhone 15 Pro Max",
+          "IMEI Number": "789012345678901",
+          "Carrier": "Unlocked (US version)",
+          "Color": "Various",
+          "Maximum Battery Capacity": "88%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "128GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Apple",
+        "desc": "[Junk] Apple | iPhone 15 Pro Max 256GB | SIM free",
+        "price": "¥85,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "iPhone 15 Pro Max",
+          "IMEI Number": "890123456789012",
+          "Carrier": "Unlocked (US version)",
+          "Color": "Various",
+          "Maximum Battery Capacity": "92%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "256GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Apple",
+        "desc": "[Junk] Apple | iPhone 15 Pro Max 512GB | SIM free",
+        "price": "¥90,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "iPhone 15 Pro Max",
+          "IMEI Number": "901234567890123",
+          "Carrier": "Unlocked (US version)",
+          "Color": "Various",
+          "Maximum Battery Capacity": "98%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "512GB"
+        }
       }
-      
-
+    ],
+    "Samsung": [
+      {
+        "grade": "J GRADE",
+        "label": "Samsung",
+        "desc": "[Junk] Samsung | Galaxy Z Flip 256GB | SIM free",
+        "price": "¥40,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "Galaxy Z Flip",
+          "IMEI Number": "123456789012345",
+          "Carrier": "Unlocked",
+          "Color": "Various",
+          "Maximum Battery Capacity": "85%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "256GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Samsung",
+        "desc": "[Junk] Samsung | Galaxy Z Flip 512GB | SIM free",
+        "price": "¥50,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "Galaxy Z Flip",
+          "IMEI Number": "234567890123456",
+          "Carrier": "Unlocked",
+          "Color": "Various",
+          "Maximum Battery Capacity": "80%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "512GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Samsung",
+        "desc": "[Junk] Samsung | Galaxy Z Flip 1TB | SIM free",
+        "price": "¥60,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "Galaxy Z Flip",
+          "IMEI Number": "345678901234567",
+          "Carrier": "Unlocked",
+          "Color": "Various",
+          "Maximum Battery Capacity": "75%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "1TB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Samsung",
+        "desc": "[Junk] Samsung | Galaxy S23 128GB | SIM free",
+        "price": "¥35,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "Galaxy S23",
+          "IMEI Number": "456789012345678",
+          "Carrier": "Unlocked",
+          "Color": "Various",
+          "Maximum Battery Capacity": "90%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "128GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Samsung",
+        "desc": "[Junk] Samsung | Galaxy S23 256GB | SIM free",
+        "price": "¥45,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "Galaxy S23",
+          "IMEI Number": "567890123456789",
+          "Carrier": "Unlocked",
+          "Color": "Various",
+          "Maximum Battery Capacity": "85%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "256GB"
+        }
+      },
+      {
+        "grade": "J GRADE",
+        "label": "Samsung",
+        "desc": "[Junk] Samsung | Galaxy S23 512GB | SIM free",
+        "price": "¥55,000",
+        "device details": {
+          "Device Type": "Pre-owned",
+          "Model": "Galaxy S23",
+          "IMEI Number": "678901234567890",
+          "Carrier": "Unlocked",
+          "Color": "Various",
+          "Maximum Battery Capacity": "80%",
+          "Accessories": "None, device only",
+          "Malfunction": "None",
+          "Grade": "C",
+          "Exterior Details": "Condition varies, scratches and wear may be present",
+          "Storage": "512GB"
+        }
+      }
+    ]
+  }
 }

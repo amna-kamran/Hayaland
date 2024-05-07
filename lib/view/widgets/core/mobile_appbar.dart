@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:web_task1/constants/image_paths.dart';
 
 class MobileAppBar extends StatelessWidget {
   const MobileAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final md = MediaQuery.sizeOf(context).width;
     return SliverAppBar(
       automaticallyImplyLeading: false,
       pinned: true,
@@ -30,9 +32,9 @@ class MobileAppBar extends StatelessWidget {
           children: [
             const Icon(Icons.menu),
             Image.asset(
-              'lib/assets/images/hayaland.png',
-              width: MediaQuery.sizeOf(context).width * 0.2,
-              height: MediaQuery.sizeOf(context).width * 0.2,
+              ImagePaths.logo,
+              width: md * 0.2,
+              height: md * 0.2,
             ),
             const Icon(Icons.shopping_cart),
           ],

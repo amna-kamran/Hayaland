@@ -5,7 +5,7 @@ class _InfoTile extends StatefulWidget {
   final String label;
   final String desc;
   final String price;
-  final onTap;
+  final VoidCallback onTap;
 
   const _InfoTile({
     required this.grade,

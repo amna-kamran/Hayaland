@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-
 import 'package:web_task1/constants/colors.dart';
+import 'package:web_task1/constants/image_paths.dart';
 import 'package:web_task1/constants/menu.dart';
-import 'package:web_task1/view/home/screens/widgets/_hover_button.dart';
+part '_hover_button.dart';
 
 class DesktopAppBar extends StatelessWidget {
   const DesktopAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final md = MediaQuery.sizeOf(context).width;
     return SliverAppBar(
       automaticallyImplyLeading: false,
       pinned: true,
       floating: true,
-      expandedHeight: MediaQuery.sizeOf(context).width * 0.115,
+      expandedHeight: md * 0.115,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         expandedTitleScale: 1,
@@ -21,21 +22,20 @@ class DesktopAppBar extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              height: MediaQuery.sizeOf(context).width * 0.075,
+              height: md * 0.075,
               color: Colors.white,
               child: Image.asset(
-                'lib/assets/images/hayaland.png',
-                width: MediaQuery.sizeOf(context).width * 0.13,
-                height: MediaQuery.sizeOf(context).width * 0.13,
+                ImagePaths.logo,
+                width: md * 0.13,
+                height: md * 0.13,
               ),
             ),
           ],
         ),
         titlePadding: EdgeInsets.zero,
         title: Container(
-          height: MediaQuery.sizeOf(context).width * 0.04,
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.sizeOf(context).width * 0.15),
+          height: md * 0.04,
+          padding: EdgeInsets.symmetric(horizontal: md * 0.15),
           child: Flex(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             direction: Axis.horizontal,
@@ -43,15 +43,14 @@ class DesktopAppBar extends StatelessWidget {
               ...menu.asMap().entries.map(
                     (entry) => Container(
                       padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.sizeOf(context).width * 0.01,
+                        horizontal: md * 0.01,
                       ),
                       child: Center(
-                        child: HoverButton(
+                        child: _HoverButton(
                           builder: (isHovered) => Text(
                             entry.value,
                             style: TextStyle(
-                              fontSize:
-                                  MediaQuery.sizeOf(context).width * 0.013,
+                              fontSize: md * 0.013,
                               color: isHovered
                                   ? Colors.white
                                   : const Color(darkgrey),
@@ -62,9 +61,8 @@ class DesktopAppBar extends StatelessWidget {
                     ),
                   ),
               Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.sizeOf(context).width * 0.01),
-                child: HoverButton(
+                padding: EdgeInsets.symmetric(horizontal: md * 0.01),
+                child: _HoverButton(
                   builder: (isHovered) => Icon(
                     Icons.shopping_cart,
                     color: isHovered ? Colors.white : const Color(darkgrey),

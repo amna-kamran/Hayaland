@@ -42,17 +42,22 @@ class _DesktopState extends State<_Desktop> {
   }
 
   void searchProducts(String query) {
-    setState(() {
-      if (query.isEmpty) {
-        filteredAppleItems = appleItems;
-      } else {
-        String formattedQuery = query.replaceAll(' ', '').toLowerCase();
-        filteredAppleItems = appleItems.where((item) {
-          String formattedDesc = item.desc.replaceAll(' ', '').toLowerCase();
-          return formattedDesc.contains(formattedQuery);
-        }).toList();
-      }
-    });
+    setState(
+      () {
+        if (query.isEmpty) {
+          filteredAppleItems = appleItems;
+        } else {
+          String formattedQuery = query.replaceAll(' ', '').toLowerCase();
+          filteredAppleItems = appleItems.where(
+            (item) {
+              String formattedDesc =
+                  item.desc.replaceAll(' ', '').toLowerCase();
+              return formattedDesc.contains(formattedQuery);
+            },
+          ).toList();
+        }
+      },
+    );
   }
 
   onTap(Smartphone smartphone) {
@@ -124,19 +129,30 @@ class _DesktopState extends State<_Desktop> {
                     SizedBox(
                       width: MediaQuery.sizeOf(context).width * 0.2,
                       child: CategoryExpanded(
-                        title: "カテゴリー",
+                        width: 200,
+                        title: const Text(
+                          "カテゴリー",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                         innerChildren: [
                           ...data.keys.toList().map(
                                 (e) => CategoryExpanded(
-                                  title: e,
+                                  width: 200,
+                                  title: Text(e),
                                   innerChildren: [
                                     for (var en in data[e]['models'].keys)
                                       CategoryExpanded(
-                                        title: en,
+                                        width: 200,
+                                        title: Text(en),
                                         innerChildren: [
                                           for (var item in data[e]['models']
                                               [en])
                                             CategoryExpanded(
+                                              width: 200,
                                               innerChild: Text(
                                                 item,
                                               ),
@@ -186,15 +202,12 @@ class _DesktopState extends State<_Desktop> {
                                   ],
                                 ),
                               ),
-                              const Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: Space.x2,
-                                  ),
-                                  CustomDropDown(),
-                                ],
-                              )
+                              CustomDropDown(
+                                height: 35,
+                                width: MediaQuery.sizeOf(context).width * 0.2,
+                                fontSize: 14,
+                                iconSize: 14,
+                              ),
                             ],
                           ),
 
@@ -203,27 +216,26 @@ class _DesktopState extends State<_Desktop> {
                             shrinkWrap: true,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount:
-                                        MediaQuery.sizeOf(context).width <
-                                                AppBreakpoints.lg
-                                            ? 2
-                                            : 4,
-                                    crossAxisSpacing: 10,
-                                    mainAxisSpacing: 10,
-                                    childAspectRatio: 0.6),
+                              crossAxisCount: MediaQuery.sizeOf(context).width <
+                                      AppBreakpoints.lg
+                                  ? 2
+                                  : 4,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: 0.6,
+                            ),
                             children: [
-                              ...filteredAppleItems
-                                  .asMap()
-                                  .entries
-                                  .map((entry) => _InfoTile(
-                                        grade: entry.value.grade ?? '',
-                                        label: entry.value.label ?? '',
-                                        desc: entry.value.desc ?? '',
-                                        price: entry.value.price ?? '',
-                                        onTap: () {
-                                          onTap(entry.value);
-                                        },
-                                      )),
+                              ...filteredAppleItems.asMap().entries.map(
+                                    (entry) => _InfoTile(
+                                      grade: entry.value.grade ?? '',
+                                      label: entry.value.label ?? '',
+                                      desc: entry.value.desc ?? '',
+                                      price: entry.value.price ?? '',
+                                      onTap: () {
+                                        onTap(entry.value);
+                                      },
+                                    ),
+                                  ),
                             ],
                           ),
                         ],
@@ -243,7 +255,7 @@ class _DesktopState extends State<_Desktop> {
           onPressed: () {},
           backgroundColor: const Color(darkblue),
           child: SvgPicture.asset(
-            'lib/assets/svgs/message.svg',
+            ImagePaths.message,
             width: 60,
             height: 60,
             color: Colors.white,

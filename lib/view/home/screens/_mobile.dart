@@ -117,15 +117,9 @@ class _MobileState extends State<_Mobile> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
-                      childAspectRatio: 5),
+                      childAspectRatio: 6.5),
                   children: [
                     Container(
-                      height: 50,
-                      width: MediaQuery.sizeOf(context).width * 0.3,
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 3.0,
-                        horizontal: 3.0,
-                      ),
                       padding: const EdgeInsets.all(5.0),
                       decoration: BoxDecoration(
                         border: Border.all(color: const Color(darkgrey)),
@@ -157,23 +151,11 @@ class _MobileState extends State<_Mobile> {
                         ],
                       ),
                     ),
-                    Container(
-                      height: 50,
-                      width: MediaQuery.sizeOf(context).width * 0.3,
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 3.0,
-                        horizontal: 3.0,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(3.0),
-                      ),
-                      child: CustomDropdown(
-                        dropDownValues: dropDownValues,
-                        dropdownValue: dropDownValues[0],
-                        onChanged: (String? value) {},
-                        iconSize: MediaQuery.sizeOf(context).width * 0.03,
-                      ),
+                    CustomDropDown(
+                      height: MediaQuery.sizeOf(context).width * 0.07,
+                      width: double.infinity,
+                      fontSize: MediaQuery.sizeOf(context).width * 0.025,
+                      iconSize: MediaQuery.sizeOf(context).width * 0.025,
                     ),
                   ],
                 ),

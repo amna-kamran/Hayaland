@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:web_task1/constants/image_paths.dart';
 
 class HoverToZoom extends StatefulWidget {
   final String imagePath;
@@ -53,16 +54,21 @@ class _HoverToZoomState extends State<HoverToZoom>
       onHover: handleHover,
       onEnter: (_) => togglePreview(true),
       onExit: (_) => togglePreview(false),
-      child: SizedBox.square(
-        dimension: widget.dimension,
-        child: showPreview
-            ? buildZoomedImage()
-            : ClipRRect(
-                borderRadius: HoverToZoom.borderRadius,
-                child: Image.asset(
-                  widget.imagePath,
-                )),
-      ),
+      child: Stack(children: [
+        Image.asset(
+          ImagePaths.logo,
+        ),
+        SizedBox.square(
+          dimension: widget.dimension,
+          child: showPreview
+              ? buildZoomedImage()
+              : ClipRRect(
+                  borderRadius: HoverToZoom.borderRadius,
+                  child: Image.asset(
+                    widget.imagePath,
+                  )),
+        ),
+      ]),
     );
   }
 

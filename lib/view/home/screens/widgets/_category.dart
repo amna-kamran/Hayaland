@@ -1,21 +1,23 @@
 part of '../../home_screen.dart';
 
 class CategoryExpanded extends StatefulWidget {
-  final innerChild;
-  final innerChildren;
-  final title;
-  bool isExpanded;
-  CategoryExpanded({
+  final Widget? innerChild;
+  final List<Widget>? innerChildren;
+  final Widget? title;
+  final double width;
+  const CategoryExpanded({
     super.key,
     this.innerChild,
-    this.isExpanded = false,
     this.title,
     this.innerChildren,
+    required this.width,
   });
 
   @override
   State<CategoryExpanded> createState() => _CategoryExpandedState();
 }
+
+bool isExpanded = false;
 
 class _CategoryExpandedState extends State<CategoryExpanded> {
   @override
@@ -25,7 +27,7 @@ class _CategoryExpandedState extends State<CategoryExpanded> {
       onTap: () {
         setState(
           () {
-            widget.isExpanded = !widget.isExpanded;
+            isExpanded = !isExpanded;
           },
         );
       },
@@ -37,11 +39,12 @@ class _CategoryExpandedState extends State<CategoryExpanded> {
                   Container(
                     padding:
                         const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
-                    width: 200,
+                    width: widget.width,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Icon(
-                          widget.isExpanded
+                          isExpanded
                               ? CupertinoIcons.chevron_up
                               : CupertinoIcons.chevron_down,
                           size: 18,
@@ -50,21 +53,14 @@ class _CategoryExpandedState extends State<CategoryExpanded> {
                           width: Space.x,
                         ),
                         Flexible(
-                          child: Text(
-                            widget.title,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          child: widget.title ?? Container(),
                         ),
                       ],
                     ),
                   ),
-                  widget.isExpanded && widget.innerChildren != null
+                  isExpanded && widget.innerChildren != null
                       ? Column(
-                          children: widget.innerChildren,
+                          children: widget.innerChildren ?? [],
                         )
                       : Container(),
                 ],
