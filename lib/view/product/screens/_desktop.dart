@@ -32,7 +32,7 @@ class _DesktopState extends State<_Desktop> {
         widget.phoneDetails.deviceDetails?.toJson();
     final List page = [
       _Table1(deviceDetails: deviceDetails, isTablet: isTablet()),
-      _Table1(deviceDetails: deviceDetails, isTablet: isTablet()),
+      _Table2(isTablet: isTablet()),
     ];
 
     return Scaffold(
@@ -268,7 +268,7 @@ class _DesktopState extends State<_Desktop> {
                 //pg
                 SizedBox(
                   height: md * 0.5,
-                  width: isTablet() ? md * 0.6 : md * 0.5,
+                  width: isTablet() ? md * 0.6 : md * 0.6,
                   child: PageView.builder(
                     controller: _controller,
                     itemBuilder: (context, index) {

@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:web_task1/configs/config_space.dart';
 import 'package:web_task1/constants/app_break_points.dart';
 import 'package:web_task1/constants/colors.dart';
+import 'package:web_task1/constants/device_grade.dart';
 
 import 'package:web_task1/model/smartphone.dart';
 import 'package:web_task1/services/responsive.dart';
@@ -19,6 +20,7 @@ part 'screens/_mobile.dart';
 part 'widgets/_circular_dropdown.dart';
 part 'widgets/_image_slider.dart';
 part 'widgets/_table1.dart';
+part 'widgets/_table2.dart';
 
 class ProductScreen extends StatelessWidget {
   final Smartphone phoneDetails;
