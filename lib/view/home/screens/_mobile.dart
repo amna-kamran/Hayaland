@@ -190,16 +190,19 @@ class _MobileState extends State<_Mobile> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
-                      childAspectRatio: 0.6),
+                      childAspectRatio: 0.5),
                   children: [
                     ...filteredAppleItems
                         .asMap()
                         .entries
-                        .map((entry) => _InfoTile(
-                              grade: entry.value.grade ?? '',
+                        .map((entry) => InfoTile(
+                              grade: entry.value.deviceDetails.grade ?? '',
                               label: entry.value.label ?? '',
                               desc: entry.value.desc ?? '',
                               price: entry.value.price ?? '',
+                              pcl: entry.value.pcl,
+                              descFontSize: 14,
+                              priceFontSize: 20,
                               onTap: () {
                                 onTap(entry.value);
                               },
@@ -211,20 +214,7 @@ class _MobileState extends State<_Mobile> {
           ),
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 10, bottom: 10),
-        child: FloatingActionButton(
-          shape: const CircleBorder(),
-          onPressed: () {},
-          backgroundColor: const Color(darkblue),
-          child: SvgPicture.asset(
-            'lib/assets/svgs/message.svg',
-            width: 60,
-            height: 60,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      floatingActionButton: const FloatingMessageButton(),
     );
   }
 }

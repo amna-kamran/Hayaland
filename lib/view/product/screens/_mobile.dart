@@ -11,14 +11,36 @@ class _Mobile extends StatefulWidget {
 }
 
 class _MobileState extends State<_Mobile> {
-  bool isTablet() =>
-      MediaQuery.sizeOf(context).width < AppBreakpoints.lg &&
-      MediaQuery.sizeOf(context).width > AppBreakpoints.xs;
+  int tableIndex = 0;
+  void setTableIndex(int index) {
+    setState(() {
+      tableIndex = index;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAppleItems();
+  }
+
+  List<dynamic> appleItems = [];
+  void getAppleItems() async {
+    AppleProvider appleProvider = AppleProvider();
+
+    List<dynamic> appleItems = await appleProvider.getApple();
+    setState(
+      () {
+        this.appleItems = appleItems;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic>? deviceDetails =
         widget.phoneDetails.deviceDetails?.toJson();
+    final md = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
       body: NestedScrollView(
@@ -30,7 +52,7 @@ class _MobileState extends State<_Mobile> {
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.sizeOf(context).width * 0.08,
+              horizontal: MediaQuery.sizeOf(context).width * 0.03,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -158,7 +180,16 @@ class _MobileState extends State<_Mobile> {
                             backgroundColor:
                                 MaterialStateProperty.all(Colors.black),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => _AddToCartDialog(
+                                isMobile: true,
+                                desc: widget.phoneDetails.desc ?? '',
+                                price: widget.phoneDetails.price ?? '',
+                              ),
+                            );
+                          },
                           child: const Text(
                             "カートに入れる",
                             style: TextStyle(
@@ -200,61 +231,85 @@ class _MobileState extends State<_Mobile> {
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.05,
                 ),
-                Text(
-                  "端末詳細",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: MediaQuery.sizeOf(context).width * 0.05,
-                    fontWeight: FontWeight.normal,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        setTableIndex(0);
+                      },
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                      child: const Text(
+                        "端末詳細",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: Space.x2),
+                    InkWell(
+                      onTap: () {
+                        setTableIndex(1);
+                      },
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                      child: const Text(
+                        "グレーディング基準",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.05,
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: Table(
-                    columnWidths: const {
-                      0: FlexColumnWidth(1),
-                      1: FlexColumnWidth(2),
-                    },
-                    border: TableBorder.all(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                    children: [
-                      ...deviceDetails!.entries.map(
-                        (e) => TableRow(
-                          children: [
-                            Container(
-                              color: const Color(lightgrey),
-                              padding: const EdgeInsets.all(15),
-                              child: Text(
-                                e.key,
-                                style: TextStyle(
-                                  fontSize:
-                                      MediaQuery.sizeOf(context).width * 0.03,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Text(
-                                e.value,
-                                style: TextStyle(
-                                  fontSize:
-                                      MediaQuery.sizeOf(context).width * 0.03,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                tableIndex == 0
+                    ? _Table1(deviceDetails: deviceDetails)
+                    : const _Table2(
+                        isMobile: true,
+                      ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "関連商品",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w100,
                   ),
                 ),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.1,
+                CustomSlider(
+                  height: 300,
+                  width: double.infinity,
+                  dimensions: 0.35,
+                  children: [
+                    ...appleItems.asMap().entries.map(
+                          (entry) => Container(
+                            padding: const EdgeInsets.all(20),
+                            child: InfoTile(
+                              eyeicon: false,
+                              grade: '',
+                              label: '',
+                              desc: entry.value.desc ?? '',
+                              price: entry.value.price ?? '',
+                              descFontSize:
+                                  MediaQuery.sizeOf(context).width * 0.02,
+                              priceFontSize: md * 0.03,
+                              onTap: () {
+                                entry.value;
+                              },
+                            ),
+                          ),
+                        ),
+                  ],
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -276,52 +331,46 @@ class _MobileState extends State<_Mobile> {
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.02,
                 ),
-                _CircularDropdown(
-                  height: MediaQuery.of(context).size.width * 0.11,
-                  width: double.infinity,
-                  text: "お支払い方法について",
-                  fontSize: MediaQuery.sizeOf(context).width * 0.04,
+                const ExpandableContainer(
+                  isMobile: true,
+                  title: "お支払い方法について",
+                  content: DropDownTable1(
+                    isColumn: true,
+                  ),
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.02,
+                  height: md * 0.02,
                 ),
-                _CircularDropdown(
-                  height: MediaQuery.of(context).size.width * 0.11,
-                  width: double.infinity,
-                  text: "お支払い方法について",
-                  fontSize: MediaQuery.sizeOf(context).width * 0.04,
-                ),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.02,
-                ),
-                _CircularDropdown(
-                  height: MediaQuery.of(context).size.width * 0.11,
-                  width: double.infinity,
-                  text: "お支払い方法について",
-                  fontSize: MediaQuery.sizeOf(context).width * 0.04,
+                const ExpandableContainer(
+                  isMobile: true,
+                  title: "配送について",
+                  content: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.02,
+                  height: md * 0.02,
                 ),
+                const ExpandableContainer(
+                  isMobile: true,
+                  title: "商品について",
+                  content: DropDownTable1(
+                    isColumn: true,
+                  ),
+                ),
+                SizedBox(
+                  height: md * 0.05,
+                )
               ],
             ),
           ),
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 10, bottom: 10),
-        child: FloatingActionButton(
-          shape: const CircleBorder(),
-          onPressed: () {},
-          backgroundColor: const Color(darkblue),
-          child: SvgPicture.asset(
-            'lib/assets/svgs/message.svg',
-            width: 60,
-            height: 60,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      floatingActionButton: const FloatingMessageButton(),
     );
   }
 }

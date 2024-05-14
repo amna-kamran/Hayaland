@@ -2,15 +2,19 @@ part of '../product_screen.dart';
 
 class _Table2 extends StatelessWidget {
   final bool isTablet;
-  const _Table2({super.key, required this.isTablet});
+  final bool isMobile;
+  const _Table2({
+    this.isTablet = false,
+    this.isMobile = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Table(
-      columnWidths: const {
-        0: FlexColumnWidth(2),
-        1: FlexColumnWidth(2),
-        2: FlexColumnWidth(6),
+      columnWidths: {
+        0: const FlexColumnWidth(2),
+        1: FlexColumnWidth(isMobile ? 3 : 2),
+        2: FlexColumnWidth(isMobile ? 4 : 6),
       },
       border: TableBorder.all(
         color: Colors.black,
@@ -24,8 +28,7 @@ class _Table2 extends StatelessWidget {
             return TableCell(
               child: Container(
                 color: index == 1 && rowIndex != 0
-                    ? getColorForIndex(
-                        rowIndex - 1) // Set color for 2nd column cells
+                    ? getColorForIndex(rowIndex - 1)
                     : Colors.white,
                 padding: const EdgeInsets.all(15),
                 child: Text(

@@ -31,9 +31,11 @@ class _ImageSliderState extends State<_ImageSlider> {
   }
 
   void _setBuilderIndex(int index) {
-    setState(() {
-      builderIndex = index;
-    });
+    setState(
+      () {
+        builderIndex = index;
+      },
+    );
   }
 
   bool isTablet() =>
@@ -62,6 +64,7 @@ class _ImageSliderState extends State<_ImageSlider> {
           child: Stack(
             children: [
               PageView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, int currentIdx) {
                   int crt = currentIdx % images.length;
                   return Container(
@@ -86,7 +89,6 @@ class _ImageSliderState extends State<_ImageSlider> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.white),
                       ),
-                      hoverColor: Colors.black.withOpacity(0.6),
                       onPressed: () {
                         _setIndex((builderIndex - 1) % images.length);
                         _controller.previousPage(
@@ -101,7 +103,6 @@ class _ImageSliderState extends State<_ImageSlider> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.white),
                       ),
-                      hoverColor: Colors.black.withOpacity(0.6),
                       onPressed: () {
                         _setIndex((builderIndex + 1) % images.length);
                         _controller.nextPage(
@@ -122,6 +123,9 @@ class _ImageSliderState extends State<_ImageSlider> {
   }
 
   GestureDetector _buildPageItem(String boxItem, int crt) {
+    bool isSelected = crt % images.length == selectedIndex;
+    double opacity = isSelected ? 1.0 : 0.5;
+
     return GestureDetector(
       onTap: () {
         _setIndex(crt % images.length);
@@ -132,12 +136,11 @@ class _ImageSliderState extends State<_ImageSlider> {
         );
       },
       child: Opacity(
-        opacity: 0.5,
+        opacity: opacity,
         child: Container(
           margin: EdgeInsets.all(isTablet() ? 5 : 8),
           height: isTablet() ? 20 : 50,
           width: isTablet() ? 20 : 50,
-          color: Colors.blue,
           child: Image.asset(
             boxItem,
             fit: BoxFit.cover,

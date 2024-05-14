@@ -5,6 +5,7 @@ class _Desktop extends StatefulWidget {
   const _Desktop({
     required this.phoneDetails,
   });
+
   //
   @override
   State<_Desktop> createState() => _DesktopState();
@@ -14,14 +15,29 @@ class _DesktopState extends State<_Desktop> {
   bool isTablet() =>
       MediaQuery.sizeOf(context).width < AppBreakpoints.lg &&
       MediaQuery.sizeOf(context).width > AppBreakpoints.xs;
-  final _controller = PageController(
-    viewportFraction: 1,
-    initialPage: 0,
-  );
-  int selectedIndex = 0;
-  void _setIndex(int index) {
+
+  @override
+  void initState() {
+    super.initState();
+    getAppleItems();
+  }
+
+  List<dynamic> appleItems = [];
+  void getAppleItems() async {
+    AppleProvider appleProvider = AppleProvider();
+
+    List<dynamic> appleItems = await appleProvider.getApple();
+    setState(
+      () {
+        this.appleItems = appleItems;
+      },
+    );
+  }
+
+  int tableIndex = 0;
+  void setTableIndex(int index) {
     setState(() {
-      selectedIndex = index;
+      tableIndex = index;
     });
   }
 
@@ -30,10 +46,6 @@ class _DesktopState extends State<_Desktop> {
     final md = MediaQuery.sizeOf(context).width;
     Map<String, dynamic>? deviceDetails =
         widget.phoneDetails.deviceDetails?.toJson();
-    final List page = [
-      _Table1(deviceDetails: deviceDetails, isTablet: isTablet()),
-      _Table2(isTablet: isTablet()),
-    ];
 
     return Scaffold(
       body: NestedScrollView(
@@ -101,9 +113,11 @@ class _DesktopState extends State<_Desktop> {
                           padding: EdgeInsets.all(md * 0.004),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color: Colors.grey),
+                              color: GradeColors.getColorForGrade(
+                                  widget.phoneDetails.deviceDetails?.grade ??
+                                      "")),
                           child: Text(
-                            widget.phoneDetails.grade ?? '',
+                            '${widget.phoneDetails.deviceDetails?.grade} グレード ',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: isTablet() ? 16 : 20,
@@ -168,34 +182,7 @@ class _DesktopState extends State<_Desktop> {
                           height: md * 0.01,
                         ),
                         SizedBox(
-                            width: 150,
-                            height: 50,
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                elevation: MaterialStateProperty.all(0),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(0),
-                                    side: const BorderSide(color: Colors.black),
-                                  ),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.black),
-                              ),
-                              onPressed: () {},
-                              child: const Text(
-                                "カートに入れる",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            )),
-                        SizedBox(
-                          height: md * 0.01,
-                        ),
-                        SizedBox(
-                          width: md * 0.3,
+                          width: 150,
                           height: 50,
                           child: ElevatedButton(
                             style: ButtonStyle(
@@ -203,21 +190,62 @@ class _DesktopState extends State<_Desktop> {
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(0),
+                                  side: const BorderSide(color: Colors.black),
                                 ),
                               ),
-                              backgroundColor: MaterialStateProperty.all(
-                                const Color(0xFF4422BF),
-                              ),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.black),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => _AddToCartDialog(
+                                  desc: widget.phoneDetails.desc ?? '',
+                                  price: widget.phoneDetails.price ?? '',
+                                ),
+                              );
+                            },
                             child: const Text(
-                              "Buy Now",
+                              "カートに入れる",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 14,
                               ),
                             ),
                           ),
+                        ),
+                        SizedBox(
+                          height: md * 0.01,
+                        ),
+                        SizedBox(
+                          width: md * 0.4,
+                          height: 50,
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                elevation: MaterialStateProperty.all(0),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0),
+                                  ),
+                                ),
+                                backgroundColor: MaterialStateProperty.all(
+                                  const Color(0xFF4422BF),
+                                ),
+                              ),
+                              onPressed: () {},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    "lib/assets/svgs/shoppay.svg",
+                                    width: 80,
+                                  ),
+                                  const Text(
+                                    " で購入",
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              )),
                         ),
                       ],
                     )
@@ -231,31 +259,31 @@ class _DesktopState extends State<_Desktop> {
                   children: [
                     InkWell(
                       onTap: () {
-                        _setIndex(0);
+                        setTableIndex(0);
                       },
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
-                      child: Text(
+                      child: const Text(
                         "端末詳細",
                         style: TextStyle(
                           color: Colors.grey,
-                          fontSize: MediaQuery.sizeOf(context).width * 0.02,
+                          fontSize: 25,
                           fontWeight: FontWeight.normal,
                         ),
                       ),
                     ),
-                    const SizedBox(width: Space.x2),
+                    const SizedBox(width: Space.x1),
                     InkWell(
                       onTap: () {
-                        _setIndex(1);
+                        setTableIndex(1);
                       },
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
-                      child: Text(
-                        "2nd",
+                      child: const Text(
+                        "グレーディング基準",
                         style: TextStyle(
                           color: Colors.grey,
-                          fontSize: MediaQuery.sizeOf(context).width * 0.02,
+                          fontSize: 25,
                           fontWeight: FontWeight.normal,
                         ),
                       ),
@@ -263,18 +291,54 @@ class _DesktopState extends State<_Desktop> {
                   ],
                 ),
                 const SizedBox(
-                  height: Space.y,
+                  height: 20,
                 ),
+                tableIndex == 0
+                    ? SizedBox(
+                        width: 750,
+                        child: _Table1(deviceDetails: deviceDetails),
+                      )
+                    : const SizedBox(
+                        width: 750,
+                        child: _Table2(),
+                      ),
                 //pg
-                SizedBox(
-                  height: md * 0.5,
-                  width: isTablet() ? md * 0.6 : md * 0.6,
-                  child: PageView.builder(
-                    controller: _controller,
-                    itemBuilder: (context, index) {
-                      return (page[selectedIndex]);
-                    },
+                const SizedBox(height: 30),
+                Text(
+                  "関連商品",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: isTablet() ? 35 : md * 0.02,
+                    fontWeight: FontWeight.w100,
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                CustomSlider(
+                  height: isTablet() ? md * 0.42 : md * 0.35,
+                  width: double.infinity,
+                  dimensions: 0.2,
+                  children: [
+                    ...appleItems.asMap().entries.map(
+                          (entry) => Container(
+                            padding: const EdgeInsets.all(20),
+                            child: InfoTile(
+                              eyeicon: false,
+                              grade: '',
+                              label: '',
+                              desc: entry.value.desc ?? '',
+                              price: entry.value.price ?? '',
+                              pcl: entry.value.pcl,
+                              descFontSize: isTablet() ? 12 : 16,
+                              priceFontSize: isTablet() ? 16 : 20,
+                              onTap: () {
+                                entry.value;
+                              },
+                            ),
+                          ),
+                        ),
+                  ],
                 ),
 
                 Container(
@@ -297,68 +361,53 @@ class _DesktopState extends State<_Desktop> {
                 SizedBox(
                   height: md * 0.02,
                 ),
-                CategoryExpanded(
-                  width: 300,
-                  title: const Text(
-                    "お支払い方法について",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  innerChildren: [
-                    Table(
-                      columnWidths: const {
-                        0: FlexColumnWidth(1),
-                        1: FlexColumnWidth(1),
-                        2: FlexColumnWidth(1),
-                      },
-                      border: TableBorder.all(
-                        color: Colors.black,
-                        width: 2,
+
+                const ExpandableContainer(
+                  title: "お支払い方法について",
+                  content: DropDownTable1(),
+                ),
+                SizedBox(
+                  height: md * 0.02,
+                ),
+                ExpandableContainer(
+                  title: "配送について",
+                  content: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
                       ),
-                      children: [
-                        TableRow(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "クレジットカード決済クレジットカードをご利用いただけます。",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: isTablet() ? 14 : md * 0.012,
-                                ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 500,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "仮想通貨送金仮想通貨（リップル）をご利用いただけます。",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: isTablet() ? 14 : md * 0.012,
-                                ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 500,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "銀行口座振込銀行振込をご利用いただけます。",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: isTablet() ? 14 : md * 0.012,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: md * 0.02,
+                ),
+                const ExpandableContainer(
+                  title: "商品について",
+                  content: DropDownTable1(),
                 ),
                 SizedBox(
                   height: md * 0.05,
@@ -368,20 +417,7 @@ class _DesktopState extends State<_Desktop> {
           ),
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 10, bottom: 10),
-        child: FloatingActionButton(
-          shape: const CircleBorder(),
-          onPressed: () {},
-          backgroundColor: const Color(darkblue),
-          child: SvgPicture.asset(
-            'lib/assets/svgs/message.svg',
-            width: 60,
-            height: 60,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      floatingActionButton: const FloatingMessageButton(),
     );
   }
 }

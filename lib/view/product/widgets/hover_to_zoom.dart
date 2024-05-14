@@ -43,7 +43,6 @@ class _HoverToZoomState extends State<HoverToZoom>
 
   @override
   void dispose() {
-    /// Dispose of the animation controller.
     controller.dispose();
     super.dispose();
   }
@@ -54,21 +53,23 @@ class _HoverToZoomState extends State<HoverToZoom>
       onHover: handleHover,
       onEnter: (_) => togglePreview(true),
       onExit: (_) => togglePreview(false),
-      child: Stack(children: [
-        Image.asset(
-          ImagePaths.logo,
-        ),
-        SizedBox.square(
-          dimension: widget.dimension,
-          child: showPreview
-              ? buildZoomedImage()
-              : ClipRRect(
-                  borderRadius: HoverToZoom.borderRadius,
-                  child: Image.asset(
-                    widget.imagePath,
-                  )),
-        ),
-      ]),
+      child: Stack(
+        children: [
+          SizedBox.square(
+            dimension: widget.dimension,
+            child: showPreview
+                ? buildZoomedImage()
+                : ClipRRect(
+                    borderRadius: HoverToZoom.borderRadius,
+                    child: Image.asset(
+                      widget.imagePath,
+                    )),
+          ),
+          Image.asset(
+            ImagePaths.logo,
+          ),
+        ],
+      ),
     );
   }
 

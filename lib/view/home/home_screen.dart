@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:web_task1/bloc/home/home_bloc.dart';
 import 'package:web_task1/configs/config_space.dart';
 import 'package:web_task1/constants/app_break_points.dart';
 import 'package:web_task1/constants/colors.dart';
@@ -15,6 +16,7 @@ import 'package:web_task1/services/products/filter.dart';
 
 import 'package:web_task1/services/responsive.dart';
 import 'package:web_task1/view/product/product_screen.dart';
+import 'package:web_task1/view/widgets/core/floating_message_button/floating_message_button.dart';
 import 'package:web_task1/view/widgets/design/drop_down.dart';
 import 'package:web_task1/view/widgets/design/visibility_icon.dart';
 import 'package:web_task1/view/widgets/core/desktop_appbar/desktop_appbar.dart';
@@ -22,9 +24,11 @@ import 'package:web_task1/view/widgets/core/mobile_appbar.dart';
 
 import 'package:web_task1/view/widgets/design/search_field.dart';
 
+import '../../constants/garde_color.dart';
+
 part 'screens/_desktop.dart';
 part 'screens/_mobile.dart';
-part 'screens/widgets/_info_tile.dart';
+part '../widgets/core/info_tile.dart';
 part 'screens/widgets/_expanded_container.dart';
 part 'screens/widgets/_category.dart';
 

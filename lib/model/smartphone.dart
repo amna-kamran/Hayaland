@@ -5,16 +5,23 @@ class Smartphone {
   String? label;
   String? desc;
   String? price;
+  String? pcl;
   DeviceDetails? deviceDetails;
 
   Smartphone(
-      {this.grade, this.label, this.desc, this.price, this.deviceDetails});
+      {this.grade,
+      this.label,
+      this.desc,
+      this.price,
+      this.deviceDetails,
+      this.pcl});
 
   Smartphone.fromJson(Map<String, dynamic> json) {
     grade = json["grade"];
     label = json["label"];
     desc = json["desc"];
     price = json["price"];
+    pcl = json["pcl"];
     deviceDetails = json["device details"] == null
         ? null
         : DeviceDetails.fromJson(json["device details"]);
@@ -25,6 +32,7 @@ class Smartphone {
     data["label"] = label;
     data["desc"] = desc;
     data["price"] = price;
+    data["pcl"] = pcl;
     if (deviceDetails != null) {
       data["device details"] = deviceDetails?.toJson();
     }
@@ -36,6 +44,7 @@ class Smartphone {
     String? label,
     String? desc,
     String? price,
+    String? pcl,
     DeviceDetails? deviceDetails,
   }) =>
       Smartphone(
@@ -43,6 +52,7 @@ class Smartphone {
         label: label ?? this.label,
         desc: desc ?? this.desc,
         price: price ?? this.price,
+        pcl: pcl ?? this.pcl,
         deviceDetails: deviceDetails ?? this.deviceDetails,
       );
 }

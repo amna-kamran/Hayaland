@@ -8,6 +8,10 @@ class _Desktop extends StatefulWidget {
 }
 
 class _DesktopState extends State<_Desktop> {
+  bool isTablet() =>
+      MediaQuery.sizeOf(context).width < AppBreakpoints.lg &&
+      MediaQuery.sizeOf(context).width > AppBreakpoints.xs;
+
   @override
   void initState() {
     super.initState();
@@ -222,15 +226,20 @@ class _DesktopState extends State<_Desktop> {
                                   : 4,
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
-                              childAspectRatio: 0.6,
+                              childAspectRatio: 0.5,
                             ),
                             children: [
                               ...filteredAppleItems.asMap().entries.map(
-                                    (entry) => _InfoTile(
-                                      grade: entry.value.grade ?? '',
+                                    (entry) => InfoTile(
+                                      grade:
+                                          entry.value.deviceDetails.grade ?? '',
                                       label: entry.value.label ?? '',
                                       desc: entry.value.desc ?? '',
                                       price: entry.value.price ?? '',
+                                      pcl: entry.value.pcl,
+                                      descFontSize: isTablet() ? 20 : 14,
+                                      priceFontSize: isTablet() ? 25 : 20,
+                                      gradeFontSize: 20,
                                       onTap: () {
                                         onTap(entry.value);
                                       },
@@ -248,20 +257,7 @@ class _DesktopState extends State<_Desktop> {
           ),
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 10, bottom: 10),
-        child: FloatingActionButton(
-          shape: const CircleBorder(),
-          onPressed: () {},
-          backgroundColor: const Color(darkblue),
-          child: SvgPicture.asset(
-            ImagePaths.message,
-            width: 60,
-            height: 60,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      floatingActionButton: const FloatingMessageButton(),
     );
   }
 }

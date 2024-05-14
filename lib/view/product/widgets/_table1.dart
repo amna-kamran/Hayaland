@@ -3,9 +3,11 @@ part of '../product_screen.dart';
 class _Table1 extends StatelessWidget {
   final Map<String, dynamic>? deviceDetails;
   final bool isTablet;
+  final double fontSize;
   const _Table1({
     required this.deviceDetails,
-    required this.isTablet,
+    this.isTablet = false,
+    this.fontSize = 12.0,
   });
 
   @override
@@ -30,9 +32,7 @@ class _Table1 extends StatelessWidget {
                   e.key,
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
-                    fontSize: isTablet
-                        ? 14
-                        : MediaQuery.sizeOf(context).width * 0.012,
+                    fontSize: getFontSize(context),
                   ),
                 ),
               ),
@@ -42,9 +42,7 @@ class _Table1 extends StatelessWidget {
                   e.value,
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
-                    fontSize: isTablet
-                        ? 14
-                        : MediaQuery.sizeOf(context).width * 0.012,
+                    fontSize: getFontSize(context),
                   ),
                 ),
               ),
@@ -53,5 +51,13 @@ class _Table1 extends StatelessWidget {
         )
       ],
     );
+  }
+
+  double getFontSize(BuildContext context) {
+    return isTablet
+        ? isTablet
+            ? 16
+            : 20
+        : fontSize;
   }
 }
