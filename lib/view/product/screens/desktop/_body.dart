@@ -1,62 +1,73 @@
-part of '../product_screen.dart';
+part of '../../product_screen.dart';
 
-class _Desktop extends StatefulWidget {
+class _BodyDesktop extends StatefulWidget {
   final Smartphone phoneDetails;
-  const _Desktop({
+  const _BodyDesktop({
     required this.phoneDetails,
   });
 
-  //
   @override
-  State<_Desktop> createState() => _DesktopState();
+  State<_BodyDesktop> createState() => _BodyDesktopState();
 }
 
-class _DesktopState extends State<_Desktop> {
+class _BodyDesktopState extends State<_BodyDesktop> {
   bool isTablet() =>
       MediaQuery.sizeOf(context).width < AppBreakpoints.lg &&
       MediaQuery.sizeOf(context).width > AppBreakpoints.xs;
-
+  ScrollController sc = ScrollController(initialScrollOffset: 0);
   @override
   void initState() {
     super.initState();
-    getAppleItems();
-  }
 
-  List<dynamic> appleItems = [];
-  void getAppleItems() async {
-    AppleProvider appleProvider = AppleProvider();
-
-    List<dynamic> appleItems = await appleProvider.getApple();
-    setState(
-      () {
-        this.appleItems = appleItems;
-      },
-    );
-  }
-
-  int tableIndex = 0;
-  void setTableIndex(int index) {
-    setState(() {
-      tableIndex = index;
+    sc.addListener(_scrollListener);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<SmartphoneBloc>(context).add(LoadAllSmartphones());
     });
+  }
+
+  void _scrollListener() {
+    BlocProvider.of<AppBarBloc>(context)
+        .add(ScrollPositionChanged(sc.position.pixels));
   }
 
   @override
   Widget build(BuildContext context) {
+    final productScreenProvider = Provider.of<_ScreenState>(context);
     final md = MediaQuery.sizeOf(context).width;
     Map<String, dynamic>? deviceDetails =
         widget.phoneDetails.deviceDetails?.toJson();
 
     return Scaffold(
+      appBar: const AnimatedAppBar(),
       body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
-            md < AppBreakpoints.lg
-                ? const MobileAppBar()
-                : const DesktopAppBar(),
+            BlocBuilder<AppBarBloc, AppBarState>(
+              builder: (context, state) {
+                bool showAppBar = true;
+                if (state is ScrollPositionState) {
+                  showAppBar = !state.isAboveThreshold;
+                }
+
+                if (showAppBar) {
+                  return const SliverAppBar(
+                    automaticallyImplyLeading: false,
+                    pinned: false,
+                    backgroundColor: Colors.white,
+                    title: ExpandedAppBar(),
+                    bottom: BottomAppBar2(),
+                  );
+                }
+
+                return SliverToBoxAdapter(
+                  child: Container(),
+                );
+              },
+            )
           ];
         },
         body: SingleChildScrollView(
+          controller: sc,
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: md * 0.02,
@@ -185,6 +196,9 @@ class _DesktopState extends State<_Desktop> {
                           width: 150,
                           height: 50,
                           child: ElevatedButton(
+                            onHover: (value) {
+                              productScreenProvider.setIsHovered(value);
+                            },
                             style: ButtonStyle(
                               elevation: MaterialStateProperty.all(0),
                               shape: MaterialStateProperty.all(
@@ -193,8 +207,10 @@ class _DesktopState extends State<_Desktop> {
                                   side: const BorderSide(color: Colors.black),
                                 ),
                               ),
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.black),
+                              backgroundColor: MaterialStateProperty.all(
+                                  productScreenProvider.isCartButtonHovered
+                                      ? const Color.fromARGB(255, 255, 255, 255)
+                                      : Colors.black),
                             ),
                             onPressed: () {
                               showDialog(
@@ -205,10 +221,12 @@ class _DesktopState extends State<_Desktop> {
                                 ),
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               "カートに入れる",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: productScreenProvider.isCartButtonHovered
+                                    ? Colors.black
+                                    : Colors.white,
                                 fontSize: 14,
                               ),
                             ),
@@ -221,6 +239,10 @@ class _DesktopState extends State<_Desktop> {
                           width: md * 0.4,
                           height: 50,
                           child: ElevatedButton(
+                              onHover: (value) {
+                                productScreenProvider
+                                    .setIsShopButtonHovered(value);
+                              },
                               style: ButtonStyle(
                                 elevation: MaterialStateProperty.all(0),
                                 shape: MaterialStateProperty.all(
@@ -229,7 +251,9 @@ class _DesktopState extends State<_Desktop> {
                                   ),
                                 ),
                                 backgroundColor: MaterialStateProperty.all(
-                                  const Color(0xFF4422BF),
+                                  productScreenProvider.isShopButtonHovered
+                                      ? const Color(0xFF391CA1)
+                                      : const Color(0xFF4422BF),
                                 ),
                               ),
                               onPressed: () {},
@@ -258,15 +282,20 @@ class _DesktopState extends State<_Desktop> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InkWell(
+                      onHover: (value) {
+                        productScreenProvider.setIsTableTitleHovered0(value);
+                      },
                       onTap: () {
-                        setTableIndex(0);
+                        productScreenProvider.setTableIndex(0);
                       },
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
-                      child: const Text(
+                      child: Text(
                         "端末詳細",
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: productScreenProvider.isTableTitleHovered0
+                              ? Colors.black
+                              : Colors.grey,
                           fontSize: 25,
                           fontWeight: FontWeight.normal,
                         ),
@@ -274,15 +303,20 @@ class _DesktopState extends State<_Desktop> {
                     ),
                     const SizedBox(width: Space.x1),
                     InkWell(
+                      onHover: (value) {
+                        productScreenProvider.setIsTableTitleHovered1(value);
+                      },
                       onTap: () {
-                        setTableIndex(1);
+                        productScreenProvider.setTableIndex(1);
                       },
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
-                      child: const Text(
+                      child: Text(
                         "グレーディング基準",
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: productScreenProvider.isTableTitleHovered1
+                              ? Colors.black
+                              : Colors.grey,
                           fontSize: 25,
                           fontWeight: FontWeight.normal,
                         ),
@@ -293,7 +327,7 @@ class _DesktopState extends State<_Desktop> {
                 const SizedBox(
                   height: 20,
                 ),
-                tableIndex == 0
+                productScreenProvider.tableIndex == 0
                     ? SizedBox(
                         width: 750,
                         child: _Table1(deviceDetails: deviceDetails),
@@ -315,30 +349,39 @@ class _DesktopState extends State<_Desktop> {
                 const SizedBox(
                   height: 10,
                 ),
-                CustomSlider(
-                  height: isTablet() ? md * 0.42 : md * 0.35,
-                  width: double.infinity,
-                  dimensions: 0.2,
-                  children: [
-                    ...appleItems.asMap().entries.map(
-                          (entry) => Container(
-                            padding: const EdgeInsets.all(20),
-                            child: InfoTile(
-                              eyeicon: false,
-                              grade: '',
-                              label: '',
-                              desc: entry.value.desc ?? '',
-                              price: entry.value.price ?? '',
-                              pcl: entry.value.pcl,
-                              descFontSize: isTablet() ? 12 : 16,
-                              priceFontSize: isTablet() ? 16 : 20,
-                              onTap: () {
-                                entry.value;
-                              },
-                            ),
-                          ),
-                        ),
-                  ],
+                BlocBuilder<SmartphoneBloc, SmartphoneState>(
+                  builder: (context, state) {
+                    if (state is SmartphonesLoading) {
+                      return const CircularProgressIndicator();
+                    } else if (state is SmartphonesLoaded) {
+                      return CustomSlider(
+                        height: isTablet() ? md * 0.42 : md * 0.35,
+                        width: double.infinity,
+                        dimensions: 0.2,
+                        children: [
+                          ...state.smartphones.asMap().entries.map(
+                                (entry) => Container(
+                                  padding: const EdgeInsets.all(20),
+                                  child: InfoTile(
+                                    eyeicon: false,
+                                    grade: '',
+                                    label: '',
+                                    desc: entry.value.desc ?? '',
+                                    price: entry.value.price ?? '',
+                                    pcl: entry.value.pcl,
+                                    descFontSize: isTablet() ? 12 : 16,
+                                    priceFontSize: isTablet() ? 16 : 20,
+                                    onTap: () {
+                                      entry.value;
+                                    },
+                                  ),
+                                ),
+                              ),
+                        ],
+                      );
+                    }
+                    return Container();
+                  },
                 ),
 
                 Container(

@@ -17,4 +17,9 @@ class AppleProvider {
     }).toList();
     return dataList;
   }
+
+  Future<Smartphone?> getAppleByIMEI(String imei) async {
+    List<dynamic> phones = await getApple();
+    return phones.firstWhere((phone) => phone.imei == imei, orElse: () => null);
+  }
 }

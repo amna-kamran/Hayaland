@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:web_task1/constants/colors.dart';
 import 'package:web_task1/constants/image_paths.dart';
 import 'package:web_task1/constants/menu.dart';
-part '_hover_button.dart';
+
+import '_hover_button.dart';
 
 class DesktopAppBar extends StatelessWidget {
   const DesktopAppBar({super.key});
@@ -46,7 +47,7 @@ class DesktopAppBar extends StatelessWidget {
                         horizontal: md * 0.01,
                       ),
                       child: Center(
-                        child: _HoverButton(
+                        child: HoverButton(
                           builder: (isHovered) => Text(
                             entry.value,
                             style: TextStyle(
@@ -62,7 +63,7 @@ class DesktopAppBar extends StatelessWidget {
                   ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: md * 0.01),
-                child: _HoverButton(
+                child: HoverButton(
                   builder: (isHovered) => Icon(
                     Icons.shopping_cart,
                     color: isHovered ? Colors.white : const Color(darkgrey),

@@ -1,39 +1,22 @@
-part of '../product_screen.dart';
+part of '../../product_screen.dart';
 
-class _Mobile extends StatefulWidget {
+class _BodyMobile extends StatefulWidget {
   final Smartphone phoneDetails;
-  const _Mobile({
+  const _BodyMobile({
     required this.phoneDetails,
   });
   //
   @override
-  State<_Mobile> createState() => _MobileState();
+  State<_BodyMobile> createState() => _BodyMobileState();
 }
 
-class _MobileState extends State<_Mobile> {
-  int tableIndex = 0;
-  void setTableIndex(int index) {
-    setState(() {
-      tableIndex = index;
-    });
-  }
-
+class _BodyMobileState extends State<_BodyMobile> {
   @override
   void initState() {
     super.initState();
-    getAppleItems();
-  }
-
-  List<dynamic> appleItems = [];
-  void getAppleItems() async {
-    AppleProvider appleProvider = AppleProvider();
-
-    List<dynamic> appleItems = await appleProvider.getApple();
-    setState(
-      () {
-        this.appleItems = appleItems;
-      },
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<SmartphoneBloc>(context).add(LoadAllSmartphones());
+    });
   }
 
   @override
@@ -41,6 +24,7 @@ class _MobileState extends State<_Mobile> {
     Map<String, dynamic>? deviceDetails =
         widget.phoneDetails.deviceDetails?.toJson();
     final md = MediaQuery.sizeOf(context).width;
+    final productScreenProvider = Provider.of<_ScreenState>(context);
 
     return Scaffold(
       body: NestedScrollView(
@@ -236,7 +220,7 @@ class _MobileState extends State<_Mobile> {
                   children: [
                     InkWell(
                       onTap: () {
-                        setTableIndex(0);
+                        productScreenProvider.setTableIndex(0);
                       },
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
@@ -252,7 +236,7 @@ class _MobileState extends State<_Mobile> {
                     const SizedBox(width: Space.x2),
                     InkWell(
                       onTap: () {
-                        setTableIndex(1);
+                        productScreenProvider.setTableIndex(1);
                       },
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
@@ -270,7 +254,7 @@ class _MobileState extends State<_Mobile> {
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.05,
                 ),
-                tableIndex == 0
+                productScreenProvider.tableIndex == 0
                     ? _Table1(deviceDetails: deviceDetails)
                     : const _Table2(
                         isMobile: true,
@@ -286,30 +270,39 @@ class _MobileState extends State<_Mobile> {
                     fontWeight: FontWeight.w100,
                   ),
                 ),
-                CustomSlider(
-                  height: 300,
-                  width: double.infinity,
-                  dimensions: 0.35,
-                  children: [
-                    ...appleItems.asMap().entries.map(
-                          (entry) => Container(
-                            padding: const EdgeInsets.all(20),
-                            child: InfoTile(
-                              eyeicon: false,
-                              grade: '',
-                              label: '',
-                              desc: entry.value.desc ?? '',
-                              price: entry.value.price ?? '',
-                              descFontSize:
-                                  MediaQuery.sizeOf(context).width * 0.02,
-                              priceFontSize: md * 0.03,
-                              onTap: () {
-                                entry.value;
-                              },
-                            ),
-                          ),
-                        ),
-                  ],
+                BlocBuilder<SmartphoneBloc, SmartphoneState>(
+                  builder: (context, state) {
+                    if (state is SmartphonesLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is SmartphonesLoaded) {
+                      return CustomSlider(
+                        height: 300,
+                        width: double.infinity,
+                        dimensions: 0.35,
+                        children: [
+                          ...state.smartphones.asMap().entries.map(
+                                (entry) => Container(
+                                  padding: const EdgeInsets.all(20),
+                                  child: InfoTile(
+                                    eyeicon: false,
+                                    grade: '',
+                                    label: '',
+                                    desc: entry.value.desc ?? '',
+                                    price: entry.value.price ?? '',
+                                    descFontSize:
+                                        MediaQuery.sizeOf(context).width * 0.02,
+                                    priceFontSize: md * 0.03,
+                                    onTap: () {
+                                      entry.value;
+                                    },
+                                  ),
+                                ),
+                              ),
+                        ],
+                      );
+                    }
+                    return Container();
+                  },
                 ),
                 Container(
                   decoration: BoxDecoration(

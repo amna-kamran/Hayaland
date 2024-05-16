@@ -1,6 +1,6 @@
-part of '../../home/home_screen.dart';
+part of '../info_tile.dart';
 
-class InfoTile extends StatefulWidget {
+class _Body extends StatefulWidget {
   final String grade;
   final String label;
   final String desc;
@@ -12,7 +12,7 @@ class InfoTile extends StatefulWidget {
   final double gradeFontSize;
   final VoidCallback onTap;
 
-  const InfoTile({
+  const _Body({
     super.key,
     required this.grade,
     required this.label,
@@ -27,11 +27,10 @@ class InfoTile extends StatefulWidget {
   });
 
   @override
-  State<InfoTile> createState() => InfoTileState();
+  State<_Body> createState() => _BodyState();
 }
 
-class InfoTileState extends State<InfoTile>
-    with SingleTickerProviderStateMixin {
+class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 100),
     vsync: this,
@@ -44,9 +43,7 @@ class InfoTileState extends State<InfoTile>
   @override
   void initState() {
     super.initState();
-    _controller.addListener(() {
-      setState(() {});
-    });
+    _controller.addListener(() {});
   }
 
   @override
@@ -65,13 +62,14 @@ class InfoTileState extends State<InfoTile>
 
   @override
   Widget build(BuildContext context) {
+    final imageProvider = Provider.of<_ScreenState>(context);
     bool isDesktop() => MediaQuery.of(context).size.width >= AppBreakpoints.lg;
 
     return InkWell(
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       onTap: widget.onTap,
       onHover: (value) {
-        onHover(value);
+        imageProvider.setIsHovered(value);
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -103,15 +101,14 @@ class InfoTileState extends State<InfoTile>
             aspectRatio: 1.0,
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: const Color(lightgrey)),
+                border: Border.all(color: Color(lightgrey)),
               ),
               child: Stack(
                 children: [
-                  BlocBuilder<HomeBloc, ImageHoverState>(
-                    builder: (context, state) {
-                      print(state.isHovered);
+                  Consumer<_ScreenState>(
+                    builder: (context, provider, _) {
                       return Image.asset(
-                        state.isHovered
+                        provider.isHovered
                             ? 'lib/assets/images/iphone-back.jpg'
                             : 'lib/assets/images/iphone.jpg',
                         fit: BoxFit.contain,

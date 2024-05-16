@@ -11,35 +11,8 @@ class _MobileState extends State<_Mobile> {
   @override
   void initState() {
     super.initState();
-    getAppleItems();
-  }
-
-  List<dynamic> appleItems = [];
-  List<dynamic> filteredAppleItems = [];
-
-  void getAppleItems() async {
-    AppleProvider appleProvider = AppleProvider();
-
-    List<dynamic> appleItems = await appleProvider.getApple();
-    setState(
-      () {
-        this.appleItems = appleItems;
-        filteredAppleItems = appleItems;
-      },
-    );
-  }
-
-  void searchProducts(String query) {
-    setState(() {
-      if (query.isEmpty) {
-        filteredAppleItems = appleItems;
-      } else {
-        String formattedQuery = query.replaceAll(' ', '').toLowerCase();
-        filteredAppleItems = appleItems.where((item) {
-          String formattedDesc = item.desc.replaceAll(' ', '').toLowerCase();
-          return formattedDesc.contains(formattedQuery);
-        }).toList();
-      }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<SmartphoneBloc>(context).add(LoadAllSmartphones());
     });
   }
 
@@ -105,7 +78,7 @@ class _MobileState extends State<_Mobile> {
                     ),
                     children: [
                       SearchField(
-                        onChanged: searchProducts,
+                        onChanged: (value) {},
                         fontSize: MediaQuery.sizeOf(context).width * 0.025,
                         iconSize: MediaQuery.sizeOf(context).width * 0.03,
                       ),
@@ -161,13 +134,12 @@ class _MobileState extends State<_Mobile> {
                 ),
                 const SizedBox(height: Space.y1),
                 RichText(
-                  text: TextSpan(
-                    text: filteredAppleItems.length.toString(),
-                    style: const TextStyle(
+                  text: const TextSpan(
+                    style: TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Colors.grey,
                     ),
-                    children: const [
+                    children: [
                       WidgetSpan(
                         child: SizedBox(
                           width: 5.0,
@@ -184,30 +156,43 @@ class _MobileState extends State<_Mobile> {
                   ),
                 ),
                 const SizedBox(height: Space.y1),
-                GridView(
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 0.5),
-                  children: [
-                    ...filteredAppleItems
-                        .asMap()
-                        .entries
-                        .map((entry) => InfoTile(
-                              grade: entry.value.deviceDetails.grade ?? '',
-                              label: entry.value.label ?? '',
-                              desc: entry.value.desc ?? '',
-                              price: entry.value.price ?? '',
-                              pcl: entry.value.pcl,
-                              descFontSize: 14,
-                              priceFontSize: 20,
-                              onTap: () {
-                                onTap(entry.value);
-                              },
-                            )),
-                  ],
+                BlocBuilder<SmartphoneBloc, SmartphoneState>(
+                  builder: (context, state) {
+                    if (state is SmartphonesLoading) {
+                      return const CircularProgressIndicator();
+                    } else if (state is SmartphonesLoaded) {
+                      return GridView(
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 0.5),
+                        children: [
+                          ...state.smartphones
+                              .asMap()
+                              .entries
+                              .map((entry) => InfoTile(
+                                    grade:
+                                        entry.value.deviceDetails.grade ?? '',
+                                    label: entry.value.label ?? '',
+                                    desc: entry.value.desc ?? '',
+                                    price: entry.value.price ?? '',
+                                    pcl: entry.value.pcl,
+                                    descFontSize: 14,
+                                    priceFontSize: 20,
+                                    onTap: () {
+                                      onTap(entry.value);
+                                    },
+                                  )),
+                        ],
+                      );
+                    } else if (state is SmartphoneError) {
+                      return Text(state.message);
+                    }
+                    return Container();
+                  },
                 ),
               ],
             ),

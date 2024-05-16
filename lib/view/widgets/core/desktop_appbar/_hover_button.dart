@@ -1,17 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'desktop_appbar.dart';
 
-class _HoverButton extends StatefulWidget {
+import 'package:flutter/material.dart';
+
+class HoverButton extends StatefulWidget {
   final Widget Function(bool isHovered) builder;
-  const _HoverButton({
+  const HoverButton({
+    super.key,
     required this.builder,
   });
 
   @override
-  State<_HoverButton> createState() => __HoverButtonState();
+  State<HoverButton> createState() => __HoverButtonState();
 }
 
-class __HoverButtonState extends State<_HoverButton> {
+class __HoverButtonState extends State<HoverButton> {
   bool isHovered = false;
   @override
   Widget build(BuildContext context) {

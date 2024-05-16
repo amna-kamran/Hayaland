@@ -11,58 +11,20 @@ class _DesktopState extends State<_Desktop> {
   bool isTablet() =>
       MediaQuery.sizeOf(context).width < AppBreakpoints.lg &&
       MediaQuery.sizeOf(context).width > AppBreakpoints.xs;
+  ScrollController sc = ScrollController(initialScrollOffset: 0);
 
   @override
   void initState() {
     super.initState();
-    getAppleItems();
-    getData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<SmartphoneBloc>(context).add(LoadAllSmartphones());
+    });
+
+    sc.addListener(_scrollListener);
   }
 
-  List<dynamic> appleItems = [];
   String selectedValue = dropDownValues[0];
   Map<String, dynamic> data = {};
-  List<dynamic> filteredAppleItems = [];
-
-  void getAppleItems() async {
-    AppleProvider appleProvider = AppleProvider();
-
-    List<dynamic> appleItems = await appleProvider.getApple();
-    setState(
-      () {
-        this.appleItems = appleItems;
-        filteredAppleItems = appleItems;
-      },
-    );
-  }
-
-  void getData() async {
-    Map<String, dynamic> data = await Filter.loadAllData();
-    setState(
-      () {
-        this.data = data;
-      },
-    );
-  }
-
-  void searchProducts(String query) {
-    setState(
-      () {
-        if (query.isEmpty) {
-          filteredAppleItems = appleItems;
-        } else {
-          String formattedQuery = query.replaceAll(' ', '').toLowerCase();
-          filteredAppleItems = appleItems.where(
-            (item) {
-              String formattedDesc =
-                  item.desc.replaceAll(' ', '').toLowerCase();
-              return formattedDesc.contains(formattedQuery);
-            },
-          ).toList();
-        }
-      },
-    );
-  }
 
   onTap(Smartphone smartphone) {
     Navigator.push(
@@ -73,16 +35,43 @@ class _DesktopState extends State<_Desktop> {
     );
   }
 
+  void _scrollListener() {
+    BlocProvider.of<AppBarBloc>(context)
+        .add(ScrollPositionChanged(sc.position.pixels));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const AnimatedAppBar(),
       body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
-            const DesktopAppBar(),
+            BlocBuilder<AppBarBloc, AppBarState>(
+              builder: (context, state) {
+                bool showAppBar = true;
+                if (state is ScrollPositionState) {
+                  showAppBar = !state.isAboveThreshold;
+                }
+
+                if (showAppBar) {
+                  return const SliverAppBar(
+                    pinned: false,
+                    backgroundColor: Colors.pink,
+                    title: ExpandedAppBar(),
+                    bottom: BottomAppBar2(),
+                  );
+                }
+
+                return SliverToBoxAdapter(
+                  child: Container(),
+                );
+              },
+            )
           ];
         },
         body: SingleChildScrollView(
+          controller: sc,
           physics: const AlwaysScrollableScrollPhysics(),
           child: Container(
             width: double.infinity,
@@ -173,24 +162,24 @@ class _DesktopState extends State<_Desktop> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SearchField(
-                            onChanged: searchProducts,
-                            fontSize: 14,
-                            iconSize: 20,
-                          ),
+                          // SearchField(
+                          //   onChanged: Stri
+                          //   fontSize: 14,
+                          //   iconSize: 20,
+                          // ),
                           const SizedBox(height: Space.y1),
                           //remove
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               RichText(
-                                text: TextSpan(
-                                  text: filteredAppleItems.length.toString(),
-                                  style: const TextStyle(
+                                text: const TextSpan(
+                                  // text: filteredAppleItems.length.toString(),
+                                  style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: Colors.grey,
                                   ),
-                                  children: const [
+                                  children: [
                                     WidgetSpan(
                                       child: SizedBox(
                                         width: 5.0,
@@ -216,37 +205,51 @@ class _DesktopState extends State<_Desktop> {
                           ),
 
                           const SizedBox(height: Space.y1),
-                          GridView(
-                            shrinkWrap: true,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: MediaQuery.sizeOf(context).width <
-                                      AppBreakpoints.lg
-                                  ? 2
-                                  : 4,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 0.5,
-                            ),
-                            children: [
-                              ...filteredAppleItems.asMap().entries.map(
-                                    (entry) => InfoTile(
-                                      grade:
-                                          entry.value.deviceDetails.grade ?? '',
-                                      label: entry.value.label ?? '',
-                                      desc: entry.value.desc ?? '',
-                                      price: entry.value.price ?? '',
-                                      pcl: entry.value.pcl,
-                                      descFontSize: isTablet() ? 20 : 14,
-                                      priceFontSize: isTablet() ? 25 : 20,
-                                      gradeFontSize: 20,
-                                      onTap: () {
-                                        onTap(entry.value);
-                                      },
-                                    ),
+
+                          BlocBuilder<SmartphoneBloc, SmartphoneState>(
+                            builder: (context, state) {
+                              if (state is SmartphonesLoading) {
+                                return const CircularProgressIndicator();
+                              } else if (state is SmartphonesLoaded) {
+                                return GridView(
+                                  shrinkWrap: true,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount:
+                                        MediaQuery.sizeOf(context).width <
+                                                AppBreakpoints.lg
+                                            ? 2
+                                            : 4,
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10,
+                                    childAspectRatio: 0.5,
                                   ),
-                            ],
-                          ),
+                                  children: [
+                                    ...state.smartphones.asMap().entries.map(
+                                          (entry) => InfoTile(
+                                            grade: entry.value.deviceDetails
+                                                    .grade ??
+                                                '',
+                                            label: entry.value.label ?? '',
+                                            desc: entry.value.desc ?? '',
+                                            price: entry.value.price ?? '',
+                                            pcl: entry.value.pcl,
+                                            descFontSize: isTablet() ? 20 : 14,
+                                            priceFontSize: isTablet() ? 25 : 20,
+                                            gradeFontSize: 20,
+                                            onTap: () {
+                                              onTap(entry.value);
+                                            },
+                                          ),
+                                        ),
+                                  ],
+                                );
+                              } else if (state is SmartphoneError) {
+                                return Text(state.message);
+                              }
+                              return Container();
+                            },
+                          )
                         ],
                       ),
                     ),
