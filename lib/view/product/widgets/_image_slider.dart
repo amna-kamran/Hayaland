@@ -2,7 +2,8 @@ part of '../product_screen.dart';
 
 class _ImageSlider extends StatefulWidget {
   final double dimensions;
-  const _ImageSlider({this.dimensions = 0.0});
+  final String pcl;
+  const _ImageSlider({this.dimensions = 0.0, this.pcl = "outlet"});
 
   @override
   State<_ImageSlider> createState() => _ImageSliderState();
@@ -49,13 +50,14 @@ class _ImageSliderState extends State<_ImageSlider> {
         Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: const Color(darkgrey),
-              width: 1,
+              color: const Color(0xDDADADAD),
+              width: 0.5,
             ),
           ),
           child: HoverToZoom(
             imagePath: images[selectedIndex],
             dimension: isTablet() ? 310 : widget.dimensions,
+            pcl: widget.pcl,
           ),
         ),
         SizedBox(

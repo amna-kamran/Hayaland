@@ -36,9 +36,9 @@ class SearchField extends StatelessWidget {
           borderRadius: BorderRadius.circular(3),
           borderSide: const BorderSide(color: Color(lightgrey)),
         ),
-        labelText: 'Enter keyword',
+        labelText: 'キーワードを入力',
         labelStyle: TextStyle(
-          color: Colors.black87,
+          color: const Color(0xDD696969),
           fontSize: fontSize,
         ),
         floatingLabelBehavior: FloatingLabelBehavior.never,

@@ -38,7 +38,6 @@ class _BodyDesktopState extends State<_BodyDesktop> {
         widget.phoneDetails.deviceDetails?.toJson();
 
     return Scaffold(
-      appBar: const AnimatedAppBar(),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
@@ -51,17 +50,20 @@ class _BodyDesktopState extends State<_BodyDesktop> {
 
                 if (showAppBar) {
                   return const SliverAppBar(
-                    automaticallyImplyLeading: false,
                     pinned: false,
                     backgroundColor: Colors.white,
+                    automaticallyImplyLeading: false,
                     title: ExpandedAppBar(),
                     bottom: BottomAppBar2(),
                   );
+                } else {
+                  return const SliverAppBar(
+                    pinned: true,
+                    backgroundColor: Colors.black,
+                    automaticallyImplyLeading: false,
+                    title: BottomAppBar2(),
+                  );
                 }
-
-                return SliverToBoxAdapter(
-                  child: Container(),
-                );
               },
             )
           ];
@@ -98,8 +100,9 @@ class _BodyDesktopState extends State<_BodyDesktop> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const _ImageSlider(
+                    _ImageSlider(
                       dimensions: 490,
+                      pcl: widget.phoneDetails.pcl ?? '',
                     ),
                     SizedBox(
                       width: md * 0.03,
@@ -295,7 +298,9 @@ class _BodyDesktopState extends State<_BodyDesktop> {
                         style: TextStyle(
                           color: productScreenProvider.isTableTitleHovered0
                               ? Colors.black
-                              : Colors.grey,
+                              : productScreenProvider.tableIndex == 0
+                                  ? Colors.black
+                                  : Colors.grey,
                           fontSize: 25,
                           fontWeight: FontWeight.normal,
                         ),
@@ -316,7 +321,9 @@ class _BodyDesktopState extends State<_BodyDesktop> {
                         style: TextStyle(
                           color: productScreenProvider.isTableTitleHovered1
                               ? Colors.black
-                              : Colors.grey,
+                              : productScreenProvider.tableIndex == 1
+                                  ? Colors.black
+                                  : Colors.grey,
                           fontSize: 25,
                           fontWeight: FontWeight.normal,
                         ),

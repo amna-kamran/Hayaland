@@ -1,6 +1,6 @@
 const List<String> items = [
-  "Shipping within Japan: 0 yen",
-  "Data erased and initialized",
-  "Up to 80% off the regular price!",
-  "Cost performance",
+  "日本国内送料０円",
+  "データ消去および初期化済",
+  "定価より最大８０％オフ！",
+  "コストパフォーマンス○",
 ];

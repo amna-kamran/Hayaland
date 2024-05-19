@@ -27,7 +27,9 @@ class _FloatingMessageButtonState extends State<FloatingMessageButton> {
 
   @override
   void dispose() {
-    _overlayEntry.remove();
+    if (_overlayEntry.mounted) {
+      _overlayEntry.remove();
+    }
     _controller.dispose();
     super.dispose();
   }
@@ -38,18 +40,7 @@ class _FloatingMessageButtonState extends State<FloatingMessageButton> {
       padding: const EdgeInsets.only(right: 10, bottom: 10),
       child: FloatingActionButton(
           shape: const CircleBorder(),
-          onPressed: () {
-            setState(
-              () {
-                isTapped = !isTapped;
-                if (isTapped) {
-                  Overlay.of(context).insert(_overlayEntry);
-                } else {
-                  _overlayEntry.remove();
-                }
-              },
-            );
-          },
+          onPressed: _toggleOverlay,
           backgroundColor: const Color(darkblue),
           child: isTapped
               ? const Icon(
@@ -215,5 +206,21 @@ class _FloatingMessageButtonState extends State<FloatingMessageButton> {
         ),
       ),
     );
+  }
+
+  void _toggleOverlay() {
+    setState(() {
+      if (isTapped) {
+        _overlayEntry
+            .remove(); // Make sure to remove the existing overlay if visible.
+        isTapped = false;
+      } else {
+        // Check if Overlay.of(context) is not null and the overlay is not already inserted.
+        if (_overlayEntry.mounted == false) {
+          Overlay.of(context).insert(_overlayEntry);
+          isTapped = true;
+        }
+      }
+    });
   }
 }

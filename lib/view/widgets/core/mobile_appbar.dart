@@ -24,21 +24,17 @@ class MobileAppBar extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.transparent,
-      title: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Icon(Icons.menu),
-            Image.asset(
-              ImagePaths.logo,
-              width: md * 0.2,
-              height: md * 0.2,
-            ),
-            const Icon(Icons.shopping_cart),
-          ],
-        ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Icon(Icons.menu),
+          Image.asset(
+            ImagePaths.logo,
+            width: 120,
+          ),
+          const Icon(Icons.shopping_cart),
+        ],
       ),
     );
   }

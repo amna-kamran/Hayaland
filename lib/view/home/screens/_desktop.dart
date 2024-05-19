@@ -43,7 +43,6 @@ class _DesktopState extends State<_Desktop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AnimatedAppBar(),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
@@ -57,15 +56,17 @@ class _DesktopState extends State<_Desktop> {
                 if (showAppBar) {
                   return const SliverAppBar(
                     pinned: false,
-                    backgroundColor: Colors.pink,
+                    backgroundColor: Colors.white,
                     title: ExpandedAppBar(),
                     bottom: BottomAppBar2(),
                   );
+                } else {
+                  return const SliverAppBar(
+                    pinned: true,
+                    backgroundColor: Colors.black,
+                    title: BottomAppBar2(),
+                  );
                 }
-
-                return SliverToBoxAdapter(
-                  child: Container(),
-                );
               },
             )
           ];
@@ -209,7 +210,9 @@ class _DesktopState extends State<_Desktop> {
                           BlocBuilder<SmartphoneBloc, SmartphoneState>(
                             builder: (context, state) {
                               if (state is SmartphonesLoading) {
-                                return const CircularProgressIndicator();
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
                               } else if (state is SmartphonesLoaded) {
                                 return GridView(
                                   shrinkWrap: true,

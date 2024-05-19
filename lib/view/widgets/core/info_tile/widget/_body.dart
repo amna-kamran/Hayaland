@@ -10,10 +10,9 @@ class _Body extends StatefulWidget {
   final double descFontSize;
   final double priceFontSize;
   final double gradeFontSize;
-  final VoidCallback onTap;
+  final onTap;
 
   const _Body({
-    super.key,
     required this.grade,
     required this.label,
     required this.desc,
@@ -74,12 +73,11 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           widget.grade.isNotEmpty
               ? Container(
-                  padding: const EdgeInsets.all(2),
-                  margin: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.all(0.5),
                   decoration: BoxDecoration(
                     color: GradeColors.getColorForGrade(widget.grade),
                     border: Border.all(
@@ -92,46 +90,55 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: widget.gradeFontSize,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 )
               : Container(),
+          const SizedBox(
+            height: 10,
+          ),
           AspectRatio(
             aspectRatio: 1.0,
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Color(lightgrey)),
+                border: Border.all(color: const Color(0xFFBCBCBC), width: 0.5),
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                ),
               ),
               child: Stack(
                 children: [
                   Consumer<_ScreenState>(
                     builder: (context, provider, _) {
-                      return Image.asset(
-                        provider.isHovered
-                            ? 'lib/assets/images/iphone-back.jpg'
-                            : 'lib/assets/images/iphone.jpg',
-                        fit: BoxFit.contain,
+                      return ClipOval(
+                        child: Image.asset(
+                          provider.isHovered
+                              ? 'lib/assets/images/iphone-back.jpg'
+                              : 'lib/assets/images/iphone.jpg',
+                        ),
                       );
                     },
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
-                      padding: const EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(8),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Image.asset(
                             'lib/assets/images/hayaland.png',
-                            width: 80,
+                            width: isDesktop() ? 100 : 60,
                           ),
                           widget.pcl == "outlet"
-                              ? const Text(
+                              ? Text(
                                   "OUTLET",
                                   style: TextStyle(
-                                    fontSize: 6,
+                                    fontSize: isDesktop() ? 8 : 5,
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 4,
                                   ),
@@ -144,18 +151,18 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
                   widget.pcl != "outlet"
                       ? Align(
                           alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(4),
+                                child: Image.asset(
                                   "lib/assets/images/phonecheck.png",
-                                  width: isDesktop() ? 50 : 30,
+                                  width: isDesktop() ? 50 : 50,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         )
                       : const SizedBox(),
@@ -181,35 +188,35 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
               ),
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.label,
-                style: TextStyle(
-                  fontSize: isDesktop()
-                      ? MediaQuery.sizeOf(context).width * 0.01
-                      : MediaQuery.sizeOf(context).width * 0.025,
-                ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            widget.label,
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize:
+                  isDesktop() ? MediaQuery.sizeOf(context).width * 0.01 : 12,
+            ),
+          ),
+          SizedBox(
+            height: isDesktop() ? 40 : 65,
+            child: Text(
+              widget.desc,
+              style: TextStyle(
+                color: const Color(0xFF2D2D2D),
+                fontSize: widget.descFontSize,
+                fontWeight: FontWeight.w700,
               ),
-              Text(
-                widget.desc,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: widget.descFontSize,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              SizedBox(height: MediaQuery.sizeOf(context).width * 0.01),
-              Text(
-                widget.price,
-                style: TextStyle(
-                  color: const Color.fromARGB(255, 185, 41, 31),
-                  fontSize: widget.priceFontSize,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
+            ),
+          ),
+          Text(
+            widget.price,
+            style: TextStyle(
+              color: const Color(0xFFd3122a),
+              fontSize: widget.priceFontSize,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),

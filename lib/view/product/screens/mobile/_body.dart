@@ -36,29 +36,35 @@ class _BodyMobileState extends State<_BodyMobile> {
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.sizeOf(context).width * 0.03,
+              horizontal: MediaQuery.sizeOf(context).width * 0.05,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).width * 0.015,
+                  height: MediaQuery.sizeOf(context).height * 0.02,
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.sizeOf(context).width * 0.06,
-                  ),
-                  child: const Text(
-                    textAlign: TextAlign.center,
-                    "STRADE [Home]→ 2. Outlet→  Smartphone → iPhone→  iPhone 13 Pro→ [Junk goods] Apple|iPhone 13 Pro 128GB|SIM Free",
-                    style: TextStyle(fontSize: 10),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Text(
+                        "STRADE [Home]→ 2. Outlet→  Smartphone → iPhone→  iPhone 13 Pro→ [Junk goods] Apple|iPhone 13 Pro 128GB|SIM Free",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xDD696969),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).width * 0.03,
                 ),
-                const _ImageSlider(
+                _ImageSlider(
+                  pcl: widget.phoneDetails.pcl ?? '',
                   dimensions: 400,
                 ),
                 SizedBox(
@@ -75,22 +81,32 @@ class _BodyMobileState extends State<_BodyMobile> {
                       ),
                     ),
                     SizedBox(
-                      height: MediaQuery.sizeOf(context).width * 0.01,
+                      height: MediaQuery.sizeOf(context).width * 0.04,
                     ),
                     Container(
-                      padding: EdgeInsets.all(
-                          MediaQuery.sizeOf(context).width * 0.01),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.grey),
-                      child: Text(
-                        widget.phoneDetails.grade ?? '',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: widget
+                              .phoneDetails.deviceDetails!.grade!.isNotEmpty
+                          ? Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                color: GradeColors.getColorForGrade(
+                                    widget.phoneDetails.deviceDetails!.grade!),
+                                border: Border.all(
+                                  color: GradeColors.getColorForGrade(widget
+                                      .phoneDetails.deviceDetails!.grade!),
+                                ),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                ' ${widget.phoneDetails.deviceDetails!.grade!} グレード ',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          : Container(),
                     ),
                     SizedBox(
                       height: MediaQuery.sizeOf(context).width * 0.02,
@@ -99,7 +115,7 @@ class _BodyMobileState extends State<_BodyMobile> {
                       widget.phoneDetails.price ?? '',
                       style: const TextStyle(
                         fontSize: 25,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 185, 41, 31),
                       ),
                     ),
@@ -133,7 +149,7 @@ class _BodyMobileState extends State<_BodyMobile> {
                             child: const Text(
                               "この商品への質問",
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 14,
                                 color: Colors.black87,
                                 fontWeight: FontWeight.bold,
                                 decorationThickness: 2,
@@ -147,11 +163,11 @@ class _BodyMobileState extends State<_BodyMobile> {
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.sizeOf(context).width * 0.01,
+                      height: MediaQuery.sizeOf(context).width * 0.03,
                     ),
                     SizedBox(
                         width: double.infinity,
-                        height: MediaQuery.sizeOf(context).width * 0.1,
+                        height: MediaQuery.sizeOf(context).width * 0.13,
                         child: ElevatedButton(
                           style: ButtonStyle(
                             elevation: MaterialStateProperty.all(0),
@@ -183,11 +199,11 @@ class _BodyMobileState extends State<_BodyMobile> {
                           ),
                         )),
                     SizedBox(
-                      height: MediaQuery.sizeOf(context).width * 0.03,
+                      height: MediaQuery.sizeOf(context).width * 0.05,
                     ),
                     SizedBox(
                       width: double.infinity,
-                      height: MediaQuery.sizeOf(context).width * 0.1,
+                      height: MediaQuery.sizeOf(context).width * 0.13,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           elevation: MaterialStateProperty.all(0),
@@ -228,8 +244,8 @@ class _BodyMobileState extends State<_BodyMobile> {
                         "端末詳細",
                         style: TextStyle(
                           color: Colors.grey,
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -244,8 +260,8 @@ class _BodyMobileState extends State<_BodyMobile> {
                         "グレーディング基準",
                         style: TextStyle(
                           color: Colors.grey,
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),

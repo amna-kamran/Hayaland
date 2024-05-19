@@ -48,19 +48,41 @@ class _MobileState extends State<_Mobile> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 2,
-                              mainAxisSpacing: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
                               childAspectRatio: 5),
                       itemCount: 4,
                       itemBuilder: (BuildContext context, int index) {
-                        return _ExpandedContainer(
-                          text: items[index],
-                          height: MediaQuery.sizeOf(context).height * 0.04,
-                          width: MediaQuery.sizeOf(context).width * 0.04,
-                          fontSize: MediaQuery.sizeOf(context).width * 0.02,
-                          path: iconPaths[index],
-                          borderColor: lightgrey,
-                          mainAxisAlignment: MainAxisAlignment.start,
+                        return Container(
+                          padding: const EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: const Color(lightgrey)),
+                            borderRadius: BorderRadius.circular(3.0),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                iconPaths[index],
+                                width: MediaQuery.sizeOf(context).width * 0.08,
+                                color: Colors.black87,
+                              ),
+                              const SizedBox(
+                                width: Space.x,
+                              ),
+                              Flexible(
+                                child: Text(
+                                  items[index],
+                                  style: TextStyle(
+                                    color: const Color(0xDD696969),
+                                    fontSize: MediaQuery.sizeOf(context).width *
+                                        0.024,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                            ],
+                          ),
                         );
                       },
                     ),
@@ -68,21 +90,21 @@ class _MobileState extends State<_Mobile> {
                 ),
                 const SizedBox(height: Space.x),
                 GridView(
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      crossAxisSpacing:
-                          MediaQuery.of(context).size.width * 0.02,
-                      mainAxisSpacing: MediaQuery.of(context).size.width * 0.02,
-                      childAspectRatio: 10,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    crossAxisSpacing: MediaQuery.of(context).size.width * 0.02,
+                    mainAxisSpacing: MediaQuery.of(context).size.width * 0.02,
+                    childAspectRatio: 10,
+                  ),
+                  children: [
+                    SearchField(
+                      onChanged: (value) {},
+                      fontSize: MediaQuery.sizeOf(context).width * 0.028,
+                      iconSize: MediaQuery.sizeOf(context).width * 0.03,
                     ),
-                    children: [
-                      SearchField(
-                        onChanged: (value) {},
-                        fontSize: MediaQuery.sizeOf(context).width * 0.025,
-                        iconSize: MediaQuery.sizeOf(context).width * 0.03,
-                      ),
-                    ]),
+                  ],
+                ),
                 const SizedBox(height: Space.x),
                 GridView(
                   shrinkWrap: true,
@@ -90,7 +112,7 @@ class _MobileState extends State<_Mobile> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
-                      childAspectRatio: 6.5),
+                      childAspectRatio: 5),
                   children: [
                     Container(
                       padding: const EdgeInsets.all(5.0),
@@ -112,11 +134,11 @@ class _MobileState extends State<_Mobile> {
                           ),
                           Flexible(
                             child: Text(
-                              "Narrow down",
+                              " 絞り込み",
                               style: TextStyle(
-                                color: Colors.black87,
+                                color: const Color(0xDD696969),
                                 fontSize:
-                                    MediaQuery.sizeOf(context).width * 0.025,
+                                    MediaQuery.sizeOf(context).width * 0.03,
                               ),
                             ),
                           ),
@@ -125,9 +147,9 @@ class _MobileState extends State<_Mobile> {
                       ),
                     ),
                     CustomDropDown(
-                      height: MediaQuery.sizeOf(context).width * 0.07,
+                      height: MediaQuery.sizeOf(context).width * 0.1,
                       width: double.infinity,
-                      fontSize: MediaQuery.sizeOf(context).width * 0.025,
+                      fontSize: MediaQuery.sizeOf(context).width * 0.03,
                       iconSize: MediaQuery.sizeOf(context).width * 0.025,
                     ),
                   ],
@@ -168,7 +190,7 @@ class _MobileState extends State<_Mobile> {
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10,
-                                childAspectRatio: 0.5),
+                                childAspectRatio: 0.47),
                         children: [
                           ...state.smartphones
                               .asMap()
@@ -176,11 +198,12 @@ class _MobileState extends State<_Mobile> {
                               .map((entry) => InfoTile(
                                     grade:
                                         entry.value.deviceDetails.grade ?? '',
+                                    gradeFontSize: 12,
                                     label: entry.value.label ?? '',
                                     desc: entry.value.desc ?? '',
                                     price: entry.value.price ?? '',
                                     pcl: entry.value.pcl,
-                                    descFontSize: 14,
+                                    descFontSize: 15,
                                     priceFontSize: 20,
                                     onTap: () {
                                       onTap(entry.value);

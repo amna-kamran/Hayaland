@@ -3,6 +3,7 @@ part of 'hover_to_zoom.dart';
 class _Body extends StatefulWidget {
   final String imagePath;
   final double dimension;
+  final String pcl;
   static const double previewSize = 150.0;
   static const double zoomScale = 3.0;
   static const Duration zoomDuration = Duration(milliseconds: 200);
@@ -11,6 +12,7 @@ class _Body extends StatefulWidget {
   const _Body({
     required this.imagePath,
     this.dimension = 400.0,
+    required this.pcl,
   });
 
   @override
@@ -39,6 +41,7 @@ class __BodyState extends State<_Body> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final hoverProvider = Provider.of<_ScreenState>(context);
+    bool isMobile() => MediaQuery.sizeOf(context).width < AppBreakpoints.md;
     return MouseRegion(
       onHover: (event) {
         hoverProvider.setCoordinates(
@@ -50,23 +53,56 @@ class __BodyState extends State<_Body> with SingleTickerProviderStateMixin {
       },
       onEnter: (_) => hoverProvider.setShowPreview(true),
       onExit: (_) => hoverProvider.setShowPreview(false),
-      child: Stack(
-        children: [
-          SizedBox.square(
-            dimension: widget.dimension,
-            child: hoverProvider.showPreview
+      child: SizedBox.square(
+        dimension: widget.dimension,
+        child: Stack(
+          children: [
+            hoverProvider.showPreview
                 ? buildZoomedImage(
                     hoverProvider.zoomHoverX, hoverProvider.zoomHoverY)
                 : ClipRRect(
                     borderRadius: _Body.borderRadius,
-                    child: Image.asset(
-                      widget.imagePath,
-                    )),
-          ),
-          Image.asset(
-            ImagePaths.logo,
-          ),
-        ],
+                    child: Image.asset(widget.imagePath),
+                  ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Image.asset(
+                      'lib/assets/images/hayaland.png',
+                      width: isMobile() ? 100 : 145,
+                    ),
+                    widget.pcl == "outlet"
+                        ? const Text(
+                            "OUTLET",
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 4,
+                            ),
+                          )
+                        : const SizedBox(),
+                  ],
+                ),
+              ),
+            ),
+            if (widget.pcl != "outlet")
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Image.asset(
+                    "lib/assets/images/phonecheck.png",
+                    width: isMobile() ? 80 : 100,
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

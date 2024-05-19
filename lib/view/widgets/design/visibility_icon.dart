@@ -16,8 +16,8 @@ class VisibilityIcon extends StatelessWidget {
       child: Icon(
         opticalSize: 30,
         Icons.visibility,
-        size: isDesktop() ? 25.0 : 20.0,
-        color: Colors.grey,
+        size: isDesktop() ? 25.0 : 15,
+        color: const Color(0xFF292929),
       ),
     );
   }

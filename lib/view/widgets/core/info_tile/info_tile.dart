@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:web_task1/constants/app_break_points.dart';
 import 'package:web_task1/constants/colors.dart';
@@ -18,7 +21,7 @@ class InfoTile extends StatelessWidget {
   final double descFontSize;
   final double priceFontSize;
   final double gradeFontSize;
-  final VoidCallback onTap;
+  final onTap;
   const InfoTile({
     super.key,
     required this.grade,

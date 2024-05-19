@@ -13,10 +13,8 @@ import 'package:web_task1/constants/device_grade.dart';
 import 'package:web_task1/constants/garde_color.dart';
 
 import 'package:web_task1/model/smartphone.dart';
-import 'package:web_task1/services/products/apple_provider.dart';
 import 'package:web_task1/services/responsive.dart';
 import 'package:web_task1/view/product/widgets/hover_to_zoom/hover_to_zoom.dart';
-import 'package:web_task1/view/widgets/core/desktop_appbar/animated_app_bar.dart';
 import 'package:web_task1/view/widgets/core/desktop_appbar/bottom_app_bar.dart';
 import 'package:web_task1/view/widgets/core/desktop_appbar/expanded_app_bar.dart';
 import 'package:web_task1/view/widgets/core/floating_message_button/floating_message_button.dart';

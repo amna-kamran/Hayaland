@@ -19,7 +19,6 @@ import 'package:web_task1/view/widgets/core/info_tile/info_tile.dart';
 import 'package:web_task1/view/widgets/design/drop_down.dart';
 import 'package:web_task1/view/widgets/core/mobile_appbar.dart';
 import 'package:web_task1/view/widgets/design/search_field.dart';
-import '../widgets/core/desktop_appbar/animated_app_bar.dart';
 
 part 'screens/_desktop.dart';
 part 'screens/_mobile.dart';
